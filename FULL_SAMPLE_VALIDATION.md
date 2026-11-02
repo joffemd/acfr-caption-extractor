@@ -22,9 +22,10 @@ big pension systems and transit agencies, 6–50 MB each. Their results are
 unknown. Each downloaded file's byte size was checked against Drive. The PDFs were
 read only; nothing in the Drive sample was modified.
 
-The 48 tested reports cover 9,226 pages. They include 36 municipalities, counties
-and states, plus school districts, colleges and universities, fire districts,
-housing authorities, airports, a library district and a transit authority. One
+The 48 tested reports cover 9,226 pages. They include cities, counties and two
+states (Hawaii, Missouri), plus school districts, colleges and universities, fire
+districts, housing authorities, airports, a library district and a transit
+authority. One
 report (Oak Park) is FY2024. Freehold Regional High School District is scanned
 and requires OCR.
 
@@ -63,7 +64,7 @@ The 53 changed cells break down as follows:
 - 29 unknown → resolved;
 - 19 page ranges corrected (missing continuation pages or spread halves);
 - 3 absent → present (Scott County, Pittsburgh, ASU);
-- 2 present → absent (ASU's and Oakton's false government-wide statements).
+- 2 present → absent (ASU's false government-wide net position and activities).
 
 The 0.3.0 column is a single combined run of all 48. Run as two separate sets,
 0.3.0 had 23 unresolved statements in 8 reports. The extra report in the combined

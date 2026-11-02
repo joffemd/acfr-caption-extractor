@@ -45,7 +45,20 @@
     "caption_mapping.csv": "628c5a96d72220d2f0ceadc9badc827197a6bac1b9aebfe15c561403e4fcfafa",
     "caption_occurrences.csv": "a2919352ee332bc6377d52eab5bd43c66d7c75cf366246b05a62c9d46017b387",
     "caption_frequencies.csv": "d56913eff9e2c25bb0d855b2d490e98b9a6085ac9416bf62206ce2673aa4bde6",
-    "processing_log.csv": "72a1452ad931366fcb692be123219ca34f12067b4650150b0d27dbd130c2a8ff"
+    "processing_log.csv": "3a7a08086ee0ebc453db13077f5e39c60c8990f1de981bfa01170f7e174c3e2a"
   },
-  "reference_sha256": "b3ef31766196376a73b5358c52b57327c9f5bc3100bcc7bc172f5f254a27de77"
+  "reference_sha256": "b3ef31766196376a73b5358c52b57327c9f5bc3100bcc7bc172f5f254a27de77",
+  "results_workbook": {
+    "path": "validation/expanded/final/ACFR22_results.xlsx",
+    "sha256": "a81052f34c2551597b68a3be8e3ed6125a6af5ad0ea54574bc0e8a99d33a5779",
+    "sheets": 6,
+    "validated_row_counts": {
+      "caption_occurrences": 5671,
+      "caption_frequencies": 3030,
+      "statement_inventory": 198,
+      "caption_mapping": 4179,
+      "processing_log": 22,
+      "validation_report": 209
+    }
+  }
 }

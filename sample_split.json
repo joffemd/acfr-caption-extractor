@@ -1,0 +1,10 @@
+{
+  "development": [
+    "ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf",
+    "ACFR002__AK_State_of_Alaska_2025.pdf"
+  ],
+  "validation": [
+    "ACFR003__AL_Auburn_2025.pdf"
+  ],
+  "note": "Three uploaded PDFs only; Auburn reserved before extraction-rule development. 1/3 is the nearest nonempty holdout to 25%. Google Drive IDs unavailable."
+}

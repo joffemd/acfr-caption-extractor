@@ -1,0 +1,9 @@
+{
+  "version": "0.1.0",
+  "purpose": "Freeze before modern extractor evaluation on Auburn holdout. Legacy baseline ran on all three; no modern rules tuned to Auburn.",
+  "sha256": {
+    "acfr_extractor.py": "cd293fc0b77b399dde1267639af05d9b6666b1a13ce86749dc1c945f4029048b",
+    "normalization.json": "1896bcaab6e489c625b04049437449dbfb9fc4951ba153b108ec2274d6205f29",
+    "legacy_clean_amount.py": "f158f16af20763f6832bcef72a154e4cfed00b9f6913a1d5e038dde3a55c591a"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "aliases": {"cash & cash equivalents": "cash and cash equivalents"},
+  "ambiguous_captions": ["accounts", "other", "restricted", "unrestricted", "current", "noncurrent", "taxes", "investments", "capital assets"],
+  "description": "Unicode NFKC, lowercase, punctuation-to-space, whitespace collapse, then exact aliases. No stemming, no digit deletion, no accounting synonym merging. Ambiguous labels include section/parent context in frequency keys."
+}

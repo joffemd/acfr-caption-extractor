@@ -21,7 +21,7 @@ import unicodedata
 import pymupdf
 from legacy_clean_amount import clean_amount
 
-VERSION = '0.3.0'
+VERSION = '0.4.0'
 TYPES = {
  'GW_NET_POSITION':'Government-wide Statement of Net Position',
  'GW_ACTIVITIES':'Government-wide Statement of Activities',
@@ -62,9 +62,12 @@ def amount(s):
  # retain the existing clean_amount routine as a secondary numeric check.
  return bool(re.search(r'\d',str(clean_amount(s))))
 
+DASHES='-‐‑‒–—―−'
+DASH=f'[{DASHES}]'
+
 def label_number(s):
- s=s.strip().strip(' ()-–—')
- s=re.sub(r'\s*[-–—]\s*','-',s)
+ s=s.strip().strip(' ()'+DASHES)
+ s=re.sub(rf'\s*{DASH}\s*','-',s)
  return s if re.fullmatch(r'(?:[IVXLC]+-)?\d{1,4}|[ivxlc]+',s) else ''
 
 def printed_label(rows,height):
@@ -78,7 +81,7 @@ def printed_label(rows,height):
   if m:return m[1]
   # Some reports print the page label on the same baseline as a notes footer.
   if r['y0']>height*.70 and re.search(r'notes.*(?:financial statements|integral part)',r['text'],re.I):
-   m=re.search(r'((?:[IVX]+\s*[-–—]\s*)?\d{1,4})\s*$',r['text'])
+   m=re.search(rf'((?:[IVX]+\s*{DASH}\s*)?\d{{1,4}})\s*$',r['text'])
    if m:return label_number(m[1])
  for r in rows:
   if r['y0']>height*.10:continue
@@ -121,13 +124,31 @@ def native_rows(page):
   words.append((*box,word[4]))
  return group_words(words)
 
+TOC_LINE=re.compile(rf'[A-Za-z].*?(?:\s|\.)(?:[A-Z]{{1,3}}\s*{DASH}\s*)?(?:\d{{1,3}}|[ivxlc]{{1,6}})(?:\s*(?:{DASH}|and|to)\s*(?:[A-Z]{{1,3}}\s*{DASH}\s*)?\d{{1,3}})?\s*$',re.I)
+
+def toc_structure(text):
+ """True when the page reads like a contents listing, not a statement.
+
+ Some reports print a "Table of Contents" back-link at the top of every page;
+ a title alone must not make a statement page a TOC page.
+ """
+ lines=[v.strip() for v in text.splitlines() if v.strip()]
+ money=lambda v:bool(re.search(r'\d,\d{3}|\$',v))
+ amount_line=lambda v:money(v) or (not TOC_LINE.fullmatch(v) and len(re.findall(r'(?<![\w,.])\(?\d[\d,.]*\)?(?![\w,.])',v))>=2)
+ entries=sum(bool(TOC_LINE.fullmatch(v)) and not money(v) for v in lines)
+ amounts=sum(amount_line(v) for v in lines)
+ return entries>=2 and entries>=amounts
+
 def is_toc(text):
+ titled=False
  for line in text.splitlines()[:12]:
   n=normalized(line)
-  if len(line)<160 and re.sub(r'[^a-z]','',n).startswith('tableofcontent'):return True
-  if re.fullmatch(r'(?:table of )?contents?(?: continued)?',n):return True
- head=' '.join(text.splitlines()[:12])
- return bool(re.search(r'\btable\b',head,re.I) and re.search(r'\bcontents?\b',head,re.I) and len(re.findall(r'\d+\s*$',text,re.M))>=5)
+  if len(line)<160 and re.sub(r'[^a-z]','',n).startswith('tableofcontent'):titled=True;break
+  if re.fullmatch(r'(?:table of )?contents?(?: continued)?',n):titled=True;break
+ if not titled:
+  head=' '.join(text.splitlines()[:12])
+  titled=bool(re.search(r'\btable\b',head,re.I) and re.search(r'\bcontents?\b',head,re.I) and len(re.findall(r'\d+\s*$',text,re.M))>=5)
+ return titled and toc_structure(text)
 
 def native_text(page,rows):
  text='\n'.join(r['text'] for r in rows)
@@ -136,13 +157,73 @@ def native_text(page,rows):
  if not is_toc(text) and is_toc(page.get_text()):text='TABLE OF CONTENTS\n'+text
  return text
 
-def title_scope(header):
- # Stop before dates/body; rejecting a reconciliation inside a cash-flow body
- # would otherwise discard a legitimate cash-flow continuation.
- return re.split(r'\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+\d{1,2}\b|\bfor (?:the )?(?:fiscal )?years?\b',header,flags=re.I)[0]
+# Navigation tab bars such as "INTRODUCTORY SECTION FINANCIAL SECTION STATISTICAL
+# SECTION" repeat on every page and must not reject a statement as statistical.
+NAV_TABS=re.compile(r'(?:\b(?:introductory|financial|statistical|supplementary|other supplementary information|compliance|single audit)\b\s*(?:section\b\s*)?){2,}',re.I)
+TITLE_START=re.compile(r'\bstatements? of\b|\bbalance sheets?\b',re.I)
+DATE_CUT=re.compile(r'\b(?:jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\.?\s+\d{1,2}\b|\bfor (?:the )?(?:fiscal )?(?:years?|period)\b|\bas of\b|\b(?:fiscal )?years? ended\b|\(?\b(?:amounts )?(?:expressed )?in thousands\b|\(?\bin millions\b',re.I)
+TYPOS=[(re.compile(r'\bpos(?:iton|tion|itoin|ision|iiton)\b',re.I),'Position'),(re.compile(r'\bfiduciay\b',re.I),'Fiduciary'),(re.compile(r'\bstatment\b',re.I),'Statement')]
 
-def numeric_rows(rows,width,height):
- return sum(any(amount(w[4]) and re.search(r'\d',w[4]) and w[0]>width*.30 for w in r['words']) for r in rows if height*.1<r['y0']<height*.94)
+def clean_header(header):
+ header=NAV_TABS.sub(' ',header)
+ for pattern,word in TYPOS:header=pattern.sub(word,header)
+ return header
+
+def title_scope(header):
+ """The statement title and a short preceding qualifier, without dates/body.
+
+ Running headers ("Annual Comprehensive Financial Report for the Year Ended")
+ often precede the real title, so cutting at the first date would lose it.
+ Stop before dates/body; rejecting a reconciliation inside a cash-flow body
+ would otherwise discard a legitimate cash-flow continuation.
+ """
+ header=clean_header(header)
+ lines=[v.strip() for v in header.split('\n') if v.strip()]
+ def prose(line):
+  return len(line)>100 and len(re.findall(r'(?:^|\s)[a-z][a-z]+',line))>=8
+ for k,line in enumerate(lines[:8]):
+  if prose(line):break
+  m=TITLE_START.search(line)
+  if not m:continue
+  before=line[:m.start()]
+  # A title begins a short line; "The statement of net position provides..."
+  # and note/MD&A prose mentioning a statement are not titles.
+  joiner=r'\b(?:the|a|an|in|on|of|to|and|our|its|this|see|for|from|with|by)\s*$'
+  # "The Statement of Fund Net Position" is a title when the rest of the line is
+  # Title Case; "The Statement of Net Position provides ..." is prose.
+  titled_the=before.strip()=='The' and not re.search(r'\b(?!(?:of|and|in|the|for|to|on|by|net)\b)[a-z][a-z]+',line[m.start():])
+  if len(before)>60 or (re.search(joiner,before,re.I) and not titled_the) or not m.group()[0].isupper():continue
+  if not before and k and re.search(joiner,lines[k-1],re.I):continue
+  # Keep preceding non-prose header lines after the last date: they carry
+  # qualifiers such as "Component Unit", "Combining" or a foundation's name.
+  # Dates are removed rather than used as a cut, so an MD&A or notes heading
+  # printed above a date line still rejects the page.
+  prev=re.sub(r'\s+',' ',DATE_CUT.sub(' ',' '.join(lines[:k]))).strip()[-200:]
+  scope=line
+  for nxt in lines[k+1:k+3]:
+   if DATE_CUT.search(scope) or prose(nxt):break
+   scope+=' '+nxt
+  title=DATE_CUT.split(scope[len(before):])[0]
+  return ' '.join(v for v in [prev,DATE_CUT.split(before)[-1].strip(),title.strip()] if v)[:260]
+ # No qualifying title line. Keep the top non-prose lines (they still carry
+ # reconciliation/budget wording used to reject pages) but drop statement names
+ # that failed the title tests, so prose mentions cannot identify a page.
+ top=[]
+ for line in lines[:8]:
+  if prose(line):break
+  top.append(line)
+ return TITLE_START.sub(' ',DATE_CUT.split(' '.join(top))[0])
+
+ZERO_DASHES={'-','–','—','‒','−'}
+
+def numeric_rows(rows,width,height,dashes=False):
+ """Rows with an amount right of the label column.
+
+ dashes=True also counts nil amounts printed as a dash. It is used only for
+ pages that already carry a recognized statement title: small custodial or
+ pension statements can have only one or two non-zero lines.
+ """
+ return sum(any((amount(w[4]) and re.search(r'\d',w[4]) or (dashes and w[4] in ZERO_DASHES)) and w[0]>width*.30 for w in r['words']) for r in rows if height*.1<r['y0']<height*.94)
 
 
 def bad_text(text):
@@ -152,11 +233,20 @@ def bad_text(text):
  return text.count('\ufffd')>max(3,len(text)*.02) or (len(words)>25 and sum(w in common for w in words)/len(words)<.035)
 
 def identify(header, context='', enterprise=False, allow_basic_combining=False):
- n=normalized(header);scope=title_scope(header);sn=normalized(scope);c=normalized(context)
+ header=clean_header(header);n=normalized(header);scope=title_scope(header);sn=normalized(scope);c=normalized(context)
  if allow_basic_combining:scope=re.sub(r'\bcombining\b','',scope,flags=re.I)
+ # A statement title must appear as a title line, not only inside prose.
+ if not TITLE_START.search(scope):return None
  if REJECT.search(scope) and not ('cash flows' in sn and scope.lower().find('reconciliation')>scope.lower().find('cash flows')):return None
  if re.search(r'discretely presented|nongovernmental component|affiliated organization|component unit.*(?:foundation|educational)',sn) and 'primary government' not in n:return None
- if re.search(r'statements? of changes? in fiduciary net position',n):return 'FF_CHANGES'
+ # "Statement of Net Position - Component Units" / "Component Units Statement of
+ # Activities" are separate presentations, not the primary government's statements.
+ # Column headings such as "Component Units" fall outside the title scope.
+ if re.search(r'\bcomponent units?\b|\bfoundations?\b|\bstatements? of financial position\b',sn) and 'primary government' not in sn:return None
+ if re.search(r'statements? of (?:changes? in fiduciary|(?:additions|revenues).{0,60}changes? in fiduciary) net position|statements? of changes? in (?:plan |fiduciary )?net position (?:held in trust|restricted for|available for)',n):return 'FF_CHANGES'
+ # "Statement of Changes in Net Position - Fiduciary Funds" names the fund type
+ # only in its qualifier.
+ if re.search(r'statements? of changes? in (?:fund |plan )?net position',sn) and re.search(r'fiduciary|pension|trust|custodial',sn+' '+c):return 'FF_CHANGES'
  if re.search(r'statements? of fiduciary net position',n):return 'FF_NET_POSITION'
  if re.search(r'statements? of cash flows?',n):return 'PF_CASH_FLOWS'
  if re.search(r'statements? of (?:revenues?|income).*expenses?.*changes? in (?:fund )?net position',n):return 'PF_OPERATING'
@@ -173,7 +263,7 @@ def identify(header, context='', enterprise=False, allow_basic_combining=False):
  return None
 
 def toc_entries(summaries):
- entries=[];context='';closed=False
+ entries=[];context='';closed=False;fasb_next=False
  for summary in summaries:
   if not is_toc(summary['text']):continue
   lines=[re.sub(r'(?:[.·…]\s*){3,}',' ',v).strip() for v in summary['text'].splitlines() if v.strip()]
@@ -184,7 +274,7 @@ def toc_entries(summaries):
    if re.search(r'notes to (?:the )?(?:basic )?financial statements',n):
     # Notes are a range barrier, not a statement. No subsequent supplementary
     # statement can replace a basic statement in the inventory.
-    m=re.search(r'(?P<start>\d{1,4})(?:\s*[-–—]\s*\d{1,4})?\s*$',line)
+    m=re.search(rf'(?P<start>\d{{1,4}})(?:\s*{DASH}\s*\d{{1,4}})?\s*$',line)
     if m:entries.append({'type':'EXCLUDED','label':m['start'],'end_label':'','title':line,'basic':False})
     closed=True;continue
    if closed:continue
@@ -193,18 +283,24 @@ def toc_entries(summaries):
    if re.fullmatch(r'(?:major )?(?:proprietary|propriety|enterprise) funds?',n):context='proprietary funds'
    if re.fullmatch(r'fiduciary funds?',n):context='fiduciary funds'
    if (re.match(r'^(?:discretely presented |nongovernmental )?component units?\b',n) or re.fullmatch(r'affiliated organization',n)) and not re.search(r'statements? of',n):context='excluded'
-   stripped=re.sub(r'^(?:(?:exhibit )?[A-Z]-?\d+[A-Za-z]?\s+)', '',line,flags=re.I)
+   # Exhibit markers: "A-1", "Exhibit 3", a bare letter ("C Balance Sheet") or roman numeral.
+   stripped=re.sub(r'^(?:(?:exhibit|statement|schedule)\s+)?(?:[A-Z]-?\d+[A-Za-z]?|[A-Z]{1,2}|[IVX]{1,4}|\d{1,2})[.):]?\s+(?=statements?\b|balance\b|reconciliation\b|comparative\b)', '',line,flags=re.I)
+   stripped=re.sub(r'^(?:(?:exhibit )?[A-Z]-?\d+[A-Za-z]?\s+)', '',stripped,flags=re.I)
    stripped=re.sub(r'^comparative\s+','',stripped,flags=re.I)
    if not re.match(r'(?:statements? of|balance sheets?|reconciliation)',stripped,re.I):continue
    combined=stripped
    # Page ranges in a TOC denote the START and END, not only the last number.
-   ref=r'(?:(?P<prefix>[IVXLC]+)\s*[-–—]\s*)?(?P<start>\d{1,4})(?:\s*[-–—]\s*(?P<end>\d{1,4}))?\s*$'
+   ref=rf'(?:(?P<prefix>[IVXLC]+)\s*{DASH}\s*)?(?P<start>\d{{1,4}})(?:\s*(?:{DASH}|\bto\b|\bthrough\b|\band\b|&)\s*(?P<end>\d{{1,4}}))?\s*$'
    for j,nxt in enumerate(lines[i+1:i+4],i+1):
     if re.search(ref,combined):break
     combined+=' '+nxt;consumed.add(j)
    m=re.search(ref,combined)
    if not m:continue
-   if REJECT.search(combined) or context=='excluded' or re.search(r'affiliated organization|nongovernmental component',combined,re.I):typ='EXCLUDED'
+   # A FASB foundation's Statement of Activities follows its Statement of
+   # Financial Position; neither belongs to the primary government.
+   fasb_pair=fasb_next and re.search(r'statements? of activities',combined,re.I) and not re.search(r'primary government',combined,re.I)
+   fasb_next=bool(re.search(r'statements? of financial position',combined,re.I))
+   if fasb_pair or REJECT.search(combined) or context=='excluded' or re.search(r'affiliated organization|nongovernmental component|\bcomponent units?\b|\bfoundations?\b|statements? of financial position',combined,re.I):typ='EXCLUDED'
    else:
     typ=identify(combined,context)
     if not typ and re.search(r'statements? of (?:fund )?net position',normalized(combined)):typ='NET_POSITION'
@@ -217,6 +313,17 @@ def toc_entries(summaries):
   if e['type']=='NET_POSITION' and model:e['type']=model
  return list({(e['type'],e['label']):e for e in entries if e['type']!='NET_POSITION'}.values())
 
+
+# Parallelism comes from worker processes; Tesseract's own OpenMP threads would
+# oversubscribe the CPU and cause timeouts on busy machines.
+OCR_ENV={**os.environ,'OMP_THREAD_LIMIT':'1'}
+
+def tesseract(args,timeouts=(120,360),check=True):
+ """Run Tesseract, retrying once with a longer timeout on a slow page."""
+ for n,limit in enumerate(timeouts):
+  try:return subprocess.run(['tesseract',*args],capture_output=True,text=True,timeout=limit,check=check,env=OCR_ENV)
+  except subprocess.TimeoutExpired:
+   if n==len(timeouts)-1:raise
 
 def ocr_rows(page,cache,force=False):
  """Tesseract TSV with a bounded local orientation retry for unreadable OCR."""
@@ -232,7 +339,7 @@ def ocr_rows(page,cache,force=False):
   image=Path(tmp)/'page.png'
   def recognize(angle):
    pix=page.get_pixmap(matrix=pymupdf.Matrix(dpi/72,dpi/72).prerotate(angle));pix.save(image)
-   result=subprocess.run(['tesseract',str(image),'stdout','-l','eng','--psm','3','tsv'],capture_output=True,text=True,timeout=120,check=True)
+   result=tesseract([str(image),'stdout','-l','eng','--psm','3','tsv'])
    words=[]
    for r in csv.DictReader(io.StringIO(result.stdout),delimiter='\t',quoting=csv.QUOTE_NONE):
     text=r.get('text','') or ''
@@ -243,7 +350,8 @@ def ocr_rows(page,cache,force=False):
    return rows
   rows=recognize(0);text='\n'.join(r['text'] for r in rows)
   if force and len(text.strip())>20 and bad_text(text):
-   osd=subprocess.run(['tesseract',str(image),'stdout','--psm','0'],capture_output=True,text=True,timeout=60)
+   try:osd=tesseract([str(image),'stdout','--psm','0'],timeouts=(60,),check=False)
+   except subprocess.TimeoutExpired:osd=subprocess.CompletedProcess([],1,'','')
    m=re.search(r'Rotate:\s*(90|180|270)',osd.stdout);preferred=int(m[1]) if m else 90
    best_score=quality(rows)
    for angle in dict.fromkeys([preferred,90,180,270]):
@@ -255,17 +363,18 @@ def ocr_rows(page,cache,force=False):
  return rows
 
 def page_header(rows,height):
- return ' '.join(r['text'] for r in rows if r['y0']<min(220,height*.29))
+ # Rows are kept on separate lines so a title can be told apart from prose.
+ return '\n'.join(r['text'] for r in rows if r['y0']<min(220,height*.29))
 
-def extract_rows(rows,width,height):
+def extract_rows(rows,width,height,dashes=False):
  """Use left-of-number text; preserve headings, indentation and joined wraps."""
  numeric=[]
  for r in rows:
   ws=r['words']
   # Ignore years and note numbers in label column when estimating amount columns.
-  ns=[w for w in ws if amount(w[4]) and re.search(r'\d',w[4]) and w[0]>width*.32 and r['y0']>height*.12 and r['y0']<height*.94]
+  ns=[w for w in ws if amount(w[4]) and (re.search(r'\d',w[4]) or (dashes and w[4] in ZERO_DASHES)) and w[0]>width*.32 and r['y0']>height*.12 and r['y0']<height*.94]
   if ns:numeric.append((r,ns))
- if len(numeric)<3:return []
+ if len(numeric)<3 or not any(re.search(r'\d',w[4]) for r,ns in numeric for w in ns):return []
  # The typical first value-column left edge, rather than the leftmost stray note.
  lefts=sorted(min(w[0] for w in ns) for r,ns in numeric)
  column=lefts[len(lefts)//5]
@@ -275,10 +384,16 @@ def extract_rows(rows,width,height):
   ws=r['words'];nums=[w for w in ws if amount(w[4]) and w[0]>=column-18]
   end=min((w[0] for w in nums),default=column-4)
   left=[w for w in ws if w[0]<end-2 and not (amount(w[4]) and w[0]>column-30)]
-  text=re.sub(r'(?:[.·…]\s*){3,}',' ',' '.join(w[4] for w in left)).strip().strip('$ ')
+  # Dotted leaders and underline rules are layout furniture, not caption text.
+  text=re.sub(r'\s+',' ',re.sub(r'(?:[.·…]\s*){3,}|_{3,}',' ',' '.join(w[4] for w in left))).strip().strip('$ ')
+  # Leftover leader dots (". .") and a nil-amount em dash left of the column.
+  text=re.sub(r'(?:\s*[.·]){2,}$|(?:\s+—)+$','',text).strip()
   if not re.search('[A-Za-z]',text) or not left:continue
   if len(text)>210:continue
-  if re.search(r'see accompanying|notes (?:are|to)|this statement|continued|statement of|balance sheet|for the (?:year|fiscal)|year ended|june \d|september \d|december \d|in thousands|stated in|exhibit |statement \d',text,re.I):continue
+  if re.search(r'see accompanying|notes (?:are|to)|this statement|continued|statement of|balance sheet|in thousands|stated in|exhibit |statement \d',text,re.I):continue
+  # Date header lines ("June 30, 2025", "For the year ended ...") are not captions,
+  # but closing-balance captions such as "Fund balances - June 30, 2025" are.
+  if re.match(r'(?:for the (?:year|fiscal|period)|(?:fiscal )?years? ended|as of\b|(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d)',text,re.I):continue
   if len(text.split())>26:continue
   candidates.append({'text':text,'x0':min(w[0] for w in left),'x1':max(w[2] for w in left),'y0':r['y0'],'y1':r['y1'],'numeric':bool(nums),'all':r['text']})
  if not candidates:return []
@@ -294,7 +409,11 @@ def extract_rows(rows,width,height):
   nxt=candidates[i+1] if i+1<len(candidates) else None
   if not c['numeric'] and not heading:
    # Wrapped caption: close vertical adjacency and matching/continuation indentation.
-   if nxt and nxt['numeric'] and nxt['y0']-c['y1']<6 and abs(nxt['x0']-c['x0'])<=4 and not c['text'].endswith(':'):
+   # A hanging-indent continuation starts in lowercase or ")" ("as previously" /
+   # "reported"), or the first line ends mid-phrase ("Revenues Over (Under)").
+   unfinished=bool(re.search(r'(?:\b(?:of|and|to|for|in|from|over|under|on|by|the|as|or|with|less|before|after|between|previously|adjusted)|\((?:under|over)\)|[,(&]|(?<=\w)[-–])$',c['text'].strip(),re.I))
+   hanging=nxt is not None and bool(re.match(r'[a-z(\)]',nxt['text'])) and nxt['x0']>=c['x0']-4
+   if nxt and nxt['numeric'] and nxt['y0']-c['y1']<6 and (abs(nxt['x0']-c['x0'])<=4 or hanging or (unfinished and nxt['x0']>=c['x0']-4)) and not c['text'].endswith(':'):
     pending.append(c);continue
    if pending:
     # An unmatched fragment is retained as a heading instead of silently lost.
@@ -311,6 +430,22 @@ def extract_rows(rows,width,height):
   items.append({**c,'section':section,'parent_heading':parent,'row_kind':'caption' if c['numeric'] else 'heading','warning':''})
   if not c['numeric'] and not SECTION.match(text):parents.append((c['x0'],text))
  return items
+
+def infer_labels(summaries,gap=3):
+ """Printed labels by PDF page, filling short unlabeled gaps.
+
+ Many reports print a page number only on odd pages, or omit it on landscape
+ statement pages. A gap is filled only when the labeled pages on both sides
+ agree on the same printed-minus-PDF offset, so a TOC entry pointing at an
+ unlabeled page can still be located. Inferred labels are used for mapping
+ only; printed_page output keeps the observed label.
+ """
+ labels={s['page']:s['label'] for s in summaries if s['label'] and not is_toc(s['text'])}
+ numeric=sorted((p,int(v)) for p,v in labels.items() if v.isdigit())
+ for (p0,v0),(p1,v1) in zip(numeric,numeric[1:]):
+  if 1<p1-p0<=gap+1 and v1-p1==v0-p0:
+   for p in range(p0+1,p1):labels.setdefault(p,str(v0+p-p0))
+ return labels
 
 def sha256_file(path):
  h=hashlib.sha256()
@@ -344,9 +479,9 @@ def process_pdf(task):
     summaries.append({'page':i,'text':'','label':'','bad':True,'blank':False,'header':'','method':'native','width':page.rect.width,'height':page.rect.height,'ocr_rotation':0});errors.append(f'page {i+1}: {type(e).__name__}: {e}')
 
   def map_contents(entries):
+   # Recomputed on each call because OCR can supply labels for scanned pages.
    labels=defaultdict(list)
-   for summary in summaries:
-    if summary['label'] and not is_toc(summary['text']):labels[summary['label']].append(summary['page'])
+   for page,label in sorted(infer_labels(summaries).items()):labels[label].append(page)
    mapped=[]
    for entry in entries:
     candidates=labels[entry['label']]
@@ -437,15 +572,24 @@ def process_pdf(task):
    # A reconciliation sometimes repeats the preceding GF statement title.
    if typ not in (None,'PF_CASH_FLOWS') and re.search(r'reconciliation of',s['header'],re.I):typ=None
    rows=get_rows(s);width=s.get('width',page.rect.width);height=s.get('height',page.rect.height);n_numeric=numeric_rows(rows,width,height)
-   items=extract_rows(rows,width,height) if n_numeric>=3 else []
+   sparse=bool(typ) and n_numeric<3
+   if sparse:n_numeric=numeric_rows(rows,width,height,dashes=True)
+   items=extract_rows(rows,width,height,dashes=sparse) if n_numeric>=3 else []
+   if typ and not items and not sparse and n_numeric>=3:items=extract_rows(rows,width,height,dashes=True)
    recovered=False
+   # Facing-page spreads sometimes print the title only on the right-hand page.
+   # A TOC-linked, untitled numeric start page joins the statement titled on the
+   # next page.
+   if typ is None and i in hints and i+1<len(summaries) and n_numeric>=3 and items and not TITLE_START.search(title_scope(s['header'])):
+    nxt=summaries[i+1]
+    if not nxt['bad'] and identify(nxt['header'],TYPES[hints[i]],enterprise)==hints[i]:typ=hints[i];recovered='untitled_spread_first_page'
    if typ is None and i in hints and s['method']=='ocr' and n_numeric>=3 and items:
     t=normalized(s['text']);expected=hints[i]
     markers={'GW_NET_POSITION':['assets','liabilities','net position'],'GW_ACTIVITIES':['expenses','activities','program revenues'],'GF_BALANCE_SHEET':['assets','liabilities','fund balances'],'GF_OPERATING':['revenues','expenditures','fund balances'],'PF_NET_POSITION':['assets','liabilities','net position'],'PF_OPERATING':['operating revenues','operating expenses','net position'],'PF_CASH_FLOWS':['cash flows','operating activities','cash'],'FF_NET_POSITION':['assets','net position'],'FF_CHANGES':['additions','deductions','net position']}
     if sum(v in t for v in markers[expected])>=2 and not REJECT.search(title_scope(s['header'])):
      typ=expected;recovered=True
    if typ and n_numeric>=3 and items:
-    detected.append({'type':typ,'page':i,'items':items,'method':s['method'],'label':s['label'],'warning':'ocr_title_from_toc' if recovered else ''});continue
+    detected.append({'type':typ,'page':i,'items':items,'method':s['method'],'label':s['label'],'warning':recovered if isinstance(recovered,str) else 'ocr_title_from_toc' if recovered else ''});continue
    if not detected or detected[-1]['page']!=i-1:continue
    previous=detected[-1];previous_type=previous['type']
    in_range=any(lo<=i<=hi for lo,hi in windows[previous_type])
@@ -458,7 +602,11 @@ def process_pdf(task):
    # Explicit accounting-section evidence permits a title-less second page when
    # a TOC lists only the start and the next statement provides the boundary.
    accounting=any(SECTION.match(r['text'].strip().rstrip(':')) or SUBHEADING.match(r['text'].strip().rstrip(':')) for r in rows[:18])
-   if n_numeric>=3 and not blocked and not different_title and (in_range or continuation) and (items or in_range or accounting):
+   # An untitled numeric page directly after a statement page (the second half
+   # of a spread, or a page whose title is printed only on the first page) is a
+   # continuation when it shows accounting structure, even without a TOC range.
+   untitled=not re.search(r'statements? of|balance sheets?|schedule of|notes? to|discussion',s['header'],re.I)
+   if n_numeric>=3 and not blocked and not different_title and (in_range or continuation or (untitled and (items or accounting))) and (items or in_range or accounting):
     detected.append({'type':previous_type,'page':i,'items':items,'method':s['method'],'label':s['label'],'warning':'amount_only_continuation' if not items else 'titleless_continuation'})
 
   bytype=defaultdict(list)

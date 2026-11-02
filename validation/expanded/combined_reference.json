@@ -428,16 +428,19 @@
     },
     "ACFR111__OH_Lakewood_Local_School_District_2025.pdf": {
       "GW_NET_POSITION": [
-        42
+        42,
+        43
       ],
       "GW_ACTIVITIES": [
-        44
+        44,
+        45
       ],
       "GF_BALANCE_SHEET": [
         46
       ],
       "GF_OPERATING": [
-        48
+        48,
+        49
       ],
       "PF_NET_POSITION": [
         54
@@ -777,6 +780,14 @@
         "Deferred outflows related to net OPEB liability",
         "TOTAL DEFERRED OUTFLOWS OF RESOURCES"
       ]
+    }
+  ],
+  "corrections": [
+    {
+      "version": "0.4.0",
+      "pdf_filename": "ACFR111__OH_Lakewood_Local_School_District_2025.pdf",
+      "change": "GW_NET_POSITION 42->42-43, GW_ACTIVITIES 44->44-45, GF_OPERATING 48->48-49",
+      "reason": "Visually checked: TOC lists Statement of Net Position at printed page 16 and Statement of Activities at 18; PDF page 43 (printed 17) holds deferred inflows and net position; pages 45 and 49 are the untitled right halves of two-page spreads."
     }
   ]
 }

@@ -1,4 +1,4 @@
-# ACFR Caption Extractor 0.3.0
+# ACFR Caption Extractor 0.4.0
 
 An offline, deterministic Python 3.12 development release for financial-statement
 caption research. No LLM, paid processing API, Google account, or network connection
@@ -65,6 +65,18 @@ AGPL/commercial licensing; use must comply with the selected license. Tesseract
 uses Apache 2.0. The uploaded legacy archive did not include a license file; this
 package does not invent distribution rights for its reused component. Reuse is
 for the user's supplied project; resolve rights before broader redistribution.
+
+## Drive sample validation (0.4.0)
+
+Tested on the 48 PDFs of the Google Drive `Representative_ACFR_Sample_120`
+folder that could be downloaded in the development session (36 development,
+12 holdout; the 72 largest PDFs could not be transferred and are untested).
+0.3.0 left 23 statements unresolved in 8 of those reports. 0.4.0 resolves all
+432 report × statement-type cells (332 present, 100 absent) and matches all
+153 available reference checks. 48 automated tests pass. See
+[FULL_SAMPLE_VALIDATION.md](FULL_SAMPLE_VALIDATION.md) for method, the frozen
+holdout measurement, per-report results and limitations. The final CSVs are
+in validation/full_sample. Release ZIP: releases/acfr-caption-extractor-0.4.0.zip.
 
 ## Expanded validation (0.3.0)
 

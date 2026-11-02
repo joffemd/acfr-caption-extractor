@@ -153,3 +153,21 @@ The original verified_reference.json remains unchanged. The expanded combined
 reference is validation/expanded/combined_reference.json, with exact inventory for
 22 reports and five checked caption pages. See EXPANDED_VALIDATION.md for scope and
 limitations. A zero-error processing log still does not certify caption completeness.
+
+## Changes in 0.4.0
+
+See CHANGELOG.md and FULL_SAMPLE_VALIDATION.md. Operationally relevant:
+
+- Tesseract now runs single-threaded per page (`OMP_THREAD_LIMIT=1`) because
+  parallelism comes from `--workers`. A page that exceeds 120 seconds is retried
+  once with a 360-second limit before it is logged as an OCR error. On the 48-report
+  sample this cut total CPU time from about 28 to 8 minutes.
+- New inventory warnings: `untitled_spread_first_page` (a TOC-linked left-hand
+  page without a title joined the statement titled on the next page). The
+  existing `titleless_continuation` warning now also covers untitled numeric
+  pages that follow a statement page without a TOC range. Review these rows.
+- Pages carrying a "Table of Contents" back-link are no longer treated as TOC
+  pages unless they also look like a contents listing.
+- Supply Drive file IDs with `--metadata` (keys are paths relative to `--input`);
+  validation/full_sample/drive_metadata_48.json is the example used for the
+  sample run.

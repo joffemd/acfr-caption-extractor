@@ -1,0 +1,962 @@
+[
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR112__CA_Truckee_Donner_Public_Utility_District_2025.pdf",
+  "drive_file_id": "1qmZxUzPi7UYh5Gefxlt7pDcObnKv0-Fm",
+  "bytes": 10990162,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR091__CO_Frederick_Firestone_Fire_Protection_District_2025.pdf",
+  "drive_file_id": "1Huy0lSK76OyJWlscEtFcvkGPJ05f-Xdo",
+  "bytes": 2082511,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR082__AZ_Fry_Fire_District_2025.pdf",
+  "drive_file_id": "1TN0ZwFc3v2sujKWoHZqL_kCf7PGX8KJ6",
+  "bytes": 5827838,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR103__IN_Indianapolis_Marion_County_Public_Library_2025.pdf",
+  "drive_file_id": "1XJQz3_PvKZdNSmg8lGEUsfsvCO02BNpO",
+  "bytes": 8059202,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR096__IL_Arlington_Heights_School_District_25_2025.pdf",
+  "drive_file_id": "1WC71yKcOBWNZ0D_dIQVLSBZLDCdwfRb9",
+  "bytes": 3661760,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR095__GA_Housing_Authority_of_the_City_of_Atlanta_2025.pdf",
+  "drive_file_id": "1xN7P_e-4XV7pvHhWWxegKlYJKWZTNf_g",
+  "bytes": 2411939,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR101__IL_Park_District_of_Oak_Park_2024.pdf",
+  "drive_file_id": "1BuWJs0TuAyPgwYVJOrhgMHbmke4WUhSc",
+  "bytes": 3605043,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR085__CA_Los_Altos_School_District_2025.pdf",
+  "drive_file_id": "1mq3e-_Ib_8ym1NNLuWxYi_SUXQPHiUqe",
+  "bytes": 6396874,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR088__CA_Santa_Clara_Valley_Transportation_Authority_2025.pdf",
+  "drive_file_id": "1s2sKFqQm9vhIUpdxthnmQsLkeLrNvSdO",
+  "bytes": 23123893,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR119__WA_Port_of_Seattle_2025.pdf",
+  "drive_file_id": "19GmzPwFqZM-hEszOGDKWPbu1dvwZNuo1",
+  "bytes": 9832678,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR111__OH_Lakewood_Local_School_District_2025.pdf",
+  "drive_file_id": "1lhZ8yyHsfnQqhbxFahs5dcMJfH6VG_CI",
+  "bytes": 5740863,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf",
+  "drive_file_id": "19WLk3M7jonXr8z2E6Mpald1aIsejXZ2s",
+  "bytes": 1700734,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR115__TX_Fort_Worth_Independent_School_District_2025.pdf",
+  "drive_file_id": "1740YAALJ6gpZk5nuOwYXjItVkT6nEO3i",
+  "bytes": 6848143,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR090__CO_Colorado_Public_Employees_Retirement_Association_2025.pdf",
+  "drive_file_id": "1Vxj7q9eVo0TTq0hS5sHnoixpnUgWiQxJ",
+  "bytes": 49660654,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR120__WA_Seattle_Housing_Authority_2025.pdf",
+  "drive_file_id": "17Cr1JcrJCJtDxVLpZKhTe1No4zvT7hJx",
+  "bytes": 1181715,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR110__NY_New_York_City_Housing_Authority_2025.pdf",
+  "drive_file_id": "1TyY17uem54kcS3Vp7jxqN1lPRRRsiXXs",
+  "bytes": 6277474,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR092__CO_Poudre_River_Public_Library_District_2025.pdf",
+  "drive_file_id": "1yC8BA2_-ySI1ugcII1VO9g-0PfhsBPMb",
+  "bytes": 17598058,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR104__MN_Minnesota_State_Retirement_System_2025.pdf",
+  "drive_file_id": "1zSHeEZUFfooYpsdN60Qm4BQ11ornNXgq",
+  "bytes": 26393454,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR081__AZ_Arizona_State_University_2025.pdf",
+  "drive_file_id": "1vSF9aMSg__MBz-I33ZyTvuso0_efxo-9",
+  "bytes": 2599356,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR116__TX_Panola_College_2025.pdf",
+  "drive_file_id": "1TT1chfu9FpOvhKVqCCTrVjCb3Zk4cfXt",
+  "bytes": 2260933,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR098__IL_Heartland_Community_College_2025.pdf",
+  "drive_file_id": "18vf1-JGH7lx7P-iJjT4F-ioL6ktImJYJ",
+  "bytes": 30755379,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR100__IL_Oakton_College_2025.pdf",
+  "drive_file_id": "1BS_YbEhAGezN2u0g31CJ8ef4j_DqDCF2",
+  "bytes": 3829279,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR097__IL_Carl_Sandburg_College_2025.pdf",
+  "drive_file_id": "1TiUHcJtng_SOeWNJzn0enBWgyW2nCtnS",
+  "bytes": 1938248,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR094__FL_Canaveral_Port_Authority_2025.pdf",
+  "drive_file_id": "1-HG3NNzNCYVatgzo9BF2tMtjkK8eDSy5",
+  "bytes": 23129602,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR109__NY_Albany_County_Airport_Authority_2025.pdf",
+  "drive_file_id": "1UHQ0m9H9KTJ-wi3twfQXuKnGpuWJcn9w",
+  "bytes": 4320904,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR086__CA_Metropolitan_Transportation_Commission_2025.pdf",
+  "drive_file_id": "1gYn_PX1jdZ5XbyXsYImhTbbzONJ3gvPY",
+  "bytes": 11094924,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR084__CA_Eastern_Municipal_Water_District_2025.pdf",
+  "drive_file_id": "1Ydj1szLL_JD2VH7G4qzqoHNvIm3zgKWN",
+  "bytes": 11753104,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR093__DC_District_of_Columbia_Water_and_Sewer_Authority_2025.pdf",
+  "drive_file_id": "1y5ooPE9Nx-neVWtNJ7rMjo5mYpGHK8rp",
+  "bytes": 15335524,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR099__IL_Metropolitan_Water_Reclamation_District_of_Greater_Chicago_2025.pdf",
+  "drive_file_id": "1o7M8DDryYLz-CCXldCW8IAw484245CcN",
+  "bytes": 7353962,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR075__RI_Providence_2025.pdf",
+  "drive_file_id": "19zowauG23rQn8WwtxhhOkVZdROkB8xgT",
+  "bytes": 3420869,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR117__VA_Metropolitan_Washington_Airports_Authority_2025.pdf",
+  "drive_file_id": "1lwVWg1GgL2_CQMNJvoD2SVqOW6pyr_s5",
+  "bytes": 6693468,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR078__SC_Greenville_County_2025.pdf",
+  "drive_file_id": "19MBuVkOX65IyIKExKBUmjRti6kl-wfyI",
+  "bytes": 5899821,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR079__TX_Flower_Mound_2025.pdf",
+  "drive_file_id": "1EKV4TUfs9A-aId3g-1QRvrmNfkeY0kzD",
+  "bytes": 10415523,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR080__TX_Tarrant_County_2025.pdf",
+  "drive_file_id": "1fF_X4Lm9Uz0R27CuM-Bl_r2-reC-RQ8F",
+  "bytes": 17543034,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR077__SC_Charleston_2025.pdf",
+  "drive_file_id": "1C6O98VwQyDwBhVztu26KS9kyxFpslqRy",
+  "bytes": 3598968,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR076__RI_State_of_Rhode_Island_2025.pdf",
+  "drive_file_id": "11g29YYnv4hij_KrK3Dw9anDlebefFXbi",
+  "bytes": 7392523,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR073__PA_Philadelphia_2025.pdf",
+  "drive_file_id": "1-bu-BzJLW8hgCcMDc8Ay-W18xURs8OYP",
+  "bytes": 6847414,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR072__PA_Commonwealth_of_Pennsylvania_2025.pdf",
+  "drive_file_id": "1-XOqxM2yBRtFjPzmJdyMR5Ls1zOVnWSR",
+  "bytes": 6475418,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR070__OR_Portland_2025.pdf",
+  "drive_file_id": "1ldt4Ko5nUUWpBUbMlkZTKwzM35g96u9H",
+  "bytes": 4259532,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR068__OK_Tulsa_2025.pdf",
+  "drive_file_id": "1FzhgFXtp0RTJ_a238z_syCGiVH076FsX",
+  "bytes": 13891658,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR064__NY_White_Plains_2025.pdf",
+  "drive_file_id": "1upIoNR0tULqjot5rVHjWEpKowQmZ-eMl",
+  "bytes": 3510488,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR065__OH_Cincinnati_2025.pdf",
+  "drive_file_id": "1Pz20YAzzL6Xrtz-hjZ4UhnmK_DxhCzmu",
+  "bytes": 23475812,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR066__OH_State_of_Ohio_2025.pdf",
+  "drive_file_id": "1b12prnUJ7oVkf6ugPf41ave9gDEogeQB",
+  "bytes": 18879780,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR063__NY_New_York_2025.pdf",
+  "drive_file_id": "1__ATDEjNUa7WId93VTp5BBlU6-JwTczb",
+  "bytes": 1951758,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR061__NV_Clark_County_2025.pdf",
+  "drive_file_id": "1A-0Nwz2KbctW3uzUO3AUI5KzJfxhxr3d",
+  "bytes": 2289670,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR062__NV_Las_Vegas_2025.pdf",
+  "drive_file_id": "1TvNuphbq7g1lsaNesaM_d1gNDJLk2HEZ",
+  "bytes": 17664629,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR060__NM_Santa_Fe_County_2025.pdf",
+  "drive_file_id": "1humY_rla_eHVACMh7Yiq1ybpz1OzESJM",
+  "bytes": 12588206,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR059__NM_Albuquerque_2025.pdf",
+  "drive_file_id": "1yWkMVbAPZbTzl3RUSJrSxDN5pMfNUKaT",
+  "bytes": 19873215,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR054__NE_Lincoln_2025.pdf",
+  "drive_file_id": "1CxGuS12QBAmfWf5HMLOv_Fjaq6GWUz1w",
+  "bytes": 16708688,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR056__NH_Manchester_2025.pdf",
+  "drive_file_id": "1Edekl1EvAPyuJMrBovbpioFGZcsu0I5k",
+  "bytes": 12396101,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR055__NE_Omaha_2025.pdf",
+  "drive_file_id": "10JBfR_-12Fjk09_U74YEnnS4Tf7nT83D",
+  "bytes": 4063133,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR053__ND_State_of_North_Dakota_2025.pdf",
+  "drive_file_id": "1x0kjJPaP796fPh4bwzg7nt4CF_JTh58t",
+  "bytes": 6502572,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR052__ND_Fargo_2025.pdf",
+  "drive_file_id": "1bDuQju6AtQc9QNYaCS-otCN5F2qI1FtF",
+  "bytes": 4327595,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR051__NC_Chapel_Hill_2025.pdf",
+  "drive_file_id": "1o1cchSkzZm6XlEQvDItlD9BRA6aP2QxP",
+  "bytes": 2754757,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR047__MT_Billings_2025.pdf",
+  "drive_file_id": "1_X9Ra5aU212joyf_bwbqXxpHOrk_EjPr",
+  "bytes": 9918718,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR049__NC_Brunswick_County_2025.pdf",
+  "drive_file_id": "1c7Y5W-KJOGyBrcKcX004jswqY9lEwnmb",
+  "bytes": 16039802,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR048__MT_State_of_Montana_2025.pdf",
+  "drive_file_id": "1rNe_oCpZ6A-fxP32u8zVbaRWJ2lpp-Kl",
+  "bytes": 21524788,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR045__MO_St._Louis_2025.pdf",
+  "drive_file_id": "1Nsvz-hQGnkmx99hGRjoDTvGMRkj6Qkqf",
+  "bytes": 13707391,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR044__MN_Olmsted_County_2025.pdf",
+  "drive_file_id": "1xHtsuL8-Ypv2zCXwwUEjanKTTLWUvURh",
+  "bytes": 7045416,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR041__MI_Kalamazoo_2025.pdf",
+  "drive_file_id": "1CwIGqmykUcF0N2GtzfyY7QZMsgOz44YV",
+  "bytes": 2727132,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR037__MD_Montgomery_County_2025.pdf",
+  "drive_file_id": "1tjxwKYHiIsEnvzGGcAvz-ObSrUA27daC",
+  "bytes": 14831758,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR040__ME_South_Portland_2025.pdf",
+  "drive_file_id": "1w2Daz5d4x8UQKBqGa4gQCMEanRGQtGfY",
+  "bytes": 12975634,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR036__MA_Nantucket_2025.pdf",
+  "drive_file_id": "1VGfEND6_m-WlYm3CgL86MtVKD0w9PtkF",
+  "bytes": 7549804,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR035__MA_Boston_2025.pdf",
+  "drive_file_id": "1nwLAqzIB-fBqPXr7rv4r-2qLcORsa7Ej",
+  "bytes": 16513151,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR034__LA_State_of_Louisiana_2025.pdf",
+  "drive_file_id": "1RSjHQ9v7sJezwuY7Tzzo3VDlWCcH6uUK",
+  "bytes": 17136774,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR033__LA_Baton_Rouge_2025.pdf",
+  "drive_file_id": "1oInody5cfXzOdgoDAxYjye2G9RvCf-MC",
+  "bytes": 42181016,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR032__KY_Louisville-Jefferson_County_Metro_Government_2025.pdf",
+  "drive_file_id": "1_x1QBcor_iygCfyv6wqMONFnaDXgVLVj",
+  "bytes": 4683597,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR031__KY_Commonwealth_of_Kentucky_2025.pdf",
+  "drive_file_id": "1ks0EOhyON_6NHGtpZ-tycnyhlndpDnXK",
+  "bytes": 11056459,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR030__KS_Lenexa_2025.pdf",
+  "drive_file_id": "1Z5AytFYZftpVJwgE6rDMAVN2nXegCCah",
+  "bytes": 4760770,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR029__KS_Lawrence_2025.pdf",
+  "drive_file_id": "1E6ESiQFK3B2sZKv248Z5VAC_BN13YPRs",
+  "bytes": 3822836,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR028__IN_Fort_Wayne_2025.pdf",
+  "drive_file_id": "1SgsGlrF-E3Khazg99QrYoYgRWkLpScFF",
+  "bytes": 3940242,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR025__IL_Evanston_2025.pdf",
+  "drive_file_id": "1QMRMNjK8pH-QBp8uuTXjZUdKl6g3_azN",
+  "bytes": 5797944,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR026__IL_Hoffman_Estates_2025.pdf",
+  "drive_file_id": "1s_EqDaUB6UaW715vAX9yb2HGwHJeqPDC",
+  "bytes": 2648111,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR023__ID_Boise_2025.pdf",
+  "drive_file_id": "1st2dLDE8j9dpA9q4S_ArKEbLI_jf2bWN",
+  "bytes": 7046091,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR024__ID_State_of_Idaho_2025.pdf",
+  "drive_file_id": "1a_4QVaYTlVSdd2btJHygOyGPqDJfo7od",
+  "bytes": 49934463,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR021__IA_Cedar_Rapids_2025.pdf",
+  "drive_file_id": "1-Fdcw5LyrcJ60ThztmXQ72zIfBJGiP_N",
+  "bytes": 3371353,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR022__IA_Scott_County_2025.pdf",
+  "drive_file_id": "1sQ8UhTnX4GCHOlGLZ8MqHMaJoELKGAHl",
+  "bytes": 2072122,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR020__HI_State_of_Hawaii_2025.pdf",
+  "drive_file_id": "1Y8k_Cef4UDdxn-RgNax9cE8Eh20Wv9sh",
+  "bytes": 2864948,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR018__GA_Hall_County_2025.pdf",
+  "drive_file_id": "1Tl2_JK8wRTG8HIibDQrgp0JBJEb07dJf",
+  "bytes": 9227766,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR016__FL_Winter_Park_2025.pdf",
+  "drive_file_id": "1a9W1oPyziG0azqG0yUrAVY2CyJ5bhmd9",
+  "bytes": 4327841,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR013__DE_State_of_Delaware_2025.pdf",
+  "drive_file_id": "1LZytEmhLobDasgKjay6x5mwjHyFAsY-C",
+  "bytes": 10990188,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR012__CT_Hartford_2025.pdf",
+  "drive_file_id": "18FacMYX1uGydaHkvOuoXLAFNBiSrBami",
+  "bytes": 15667681,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR010__CO_Golden_2025.pdf",
+  "drive_file_id": "13YdvU8WEVeEK0rMkzydTINS_cPh_7CCP",
+  "bytes": 10635262,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR009__CO_City_and_County_of_Denver_2025.pdf",
+  "drive_file_id": "1XE4-KzJYNhmot0kh52PwTlAGSmB3fCYL",
+  "bytes": 8528358,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR008__CA_Palo_Alto_2025.pdf",
+  "drive_file_id": "1g2qy71Vvouaqd7Pjs815MhS9-6vZ230Q",
+  "bytes": 10997907,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR005__AZ_Chandler_2025.pdf",
+  "drive_file_id": "1vkUARoHHr9MuXLGNE887J51NX__7ErPk",
+  "bytes": 5076917,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR006__AZ_Phoenix_2025.pdf",
+  "drive_file_id": "1P2tip-6JcHpLqdDkLarbkjmlRb0Hs49D",
+  "bytes": 13799412,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR003__AL_Auburn_2025.pdf",
+  "drive_file_id": "17S3wnvnRxp-bZYr0YHY9ipJDcfYpR8yJ",
+  "bytes": 12366767,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf",
+  "drive_file_id": "1ey_5rrcPfNxd6Jf9gg1oDNP0sSfZZZJ9",
+  "bytes": 3931966,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Development_90",
+  "pdf_filename": "ACFR002__AK_State_of_Alaska_2025.pdf",
+  "drive_file_id": "1JKcCpb4ULBpqNqM3OUaOym6DOLQLRrTb",
+  "bytes": 19244430,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf",
+  "drive_file_id": "1RAdbGoIfhKpPfYQTh1Ete13-O4czSPc_",
+  "bytes": 2216814,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR114__SC_Coastal_Carolina_University_2025.pdf",
+  "drive_file_id": "1mLwmIZrN6ZxBXQbObNsUg9tALXnfIdLa",
+  "bytes": 5934874,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf",
+  "drive_file_id": "1MXIoO6oBz9zwCK7HbdYOFNjsLzlksDLt",
+  "bytes": 7409084,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf",
+  "drive_file_id": "1-odnt4iLrPnSSctnuBIhPbGMKQEBUku2",
+  "bytes": 7214208,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf",
+  "drive_file_id": "14uXRhYD7RNaB6-5BULOgMr2YsjTEl0J0",
+  "bytes": 4024840,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf",
+  "drive_file_id": "10-dRxfPC4Gk-mL02-xNOT1tHXFWRRCLM",
+  "bytes": 8365821,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf",
+  "drive_file_id": "1YX5prs15luV70b2k6fD2tEdYB52i2FH_",
+  "bytes": 4370411,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR106__NC_University_of_North_Carolina_at_Chapel_Hill_2025.pdf",
+  "drive_file_id": "1CE1dz9UB82DSSFGSe1wkT2W0YiSN38HZ",
+  "bytes": 26967397,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf",
+  "drive_file_id": "1GsR9uNQE8ffELNvvaqAmzIjOkmcSg2_j",
+  "bytes": 3716699,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR071__OR_State_of_Oregon_2025.pdf",
+  "drive_file_id": "140z1HvMhP2cJEOrr4GgiSMwjq1W5tipk",
+  "bytes": 7844444,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR067__OK_Edmond_2025.pdf",
+  "drive_file_id": "1w_5qhcxvO9F9VbPISixpgwT0_74PnMCp",
+  "bytes": 7517716,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR058__NJ_State_of_New_Jersey_2025.pdf",
+  "drive_file_id": "1BGE_neigIIZSkym17Iepyi-s9V-LQJUP",
+  "bytes": 10795985,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR074__PA_Pittsburgh_2025.pdf",
+  "drive_file_id": "1PQh-eMR0GuARpL9FtoAw-IJb_19fGtRE",
+  "bytes": 5600255,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR057__NH_State_of_New_Hampshire_2025.pdf",
+  "drive_file_id": "12wyeE6bNAhyChrrcv1xNPWivNxwcnHQP",
+  "bytes": 8686016,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR050__NC_Cary_2025.pdf",
+  "drive_file_id": "12y7og_XtH-JgF1ZNFIQ2My-lDltmrfWN",
+  "bytes": 4236549,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR046__MO_State_of_Missouri_2025.pdf",
+  "drive_file_id": "1diu1-u4nVHmXA0y1pwKSRD3I8pNSP1BK",
+  "bytes": 3749510,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR069__OR_Deschutes_County_2025.pdf",
+  "drive_file_id": "1XQhVXCyh5U4lxOFiMglf66e0ZHweSPNc",
+  "bytes": 13297237,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR042__MI_Livonia_2025.pdf",
+  "drive_file_id": "1m_7lGMNSVWAnMJ07-wWbOUTlEFvP_Xm1",
+  "bytes": 2620600,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR043__MN_Duluth_2025.pdf",
+  "drive_file_id": "1PRorQ8sdSMwiO-KjEWCh01WpLvhsIT8G",
+  "bytes": 4946646,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR039__ME_Kennebunkport_2025.pdf",
+  "drive_file_id": "1MIh8ovkGJmu1ghCupsaVo9jGbPY4p20e",
+  "bytes": 10138617,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR038__MD_Rockville_2025.pdf",
+  "drive_file_id": "1-KS0GHgJxZJuESWB5P7xbu2HCIr9egL8",
+  "bytes": 24012498,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR027__IN_Carmel_2025.pdf",
+  "drive_file_id": "1uK_KaqwdaSdEjYx8syjj4JcQD-Paauwc",
+  "bytes": 12005672,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR019__HI_City_and_County_of_Honolulu_2025.pdf",
+  "drive_file_id": "1yIYfbM9GQ18G0-UCu_n41IULfrwWkW9X",
+  "bytes": 9703499,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR017__GA_Dunwoody_2025.pdf",
+  "drive_file_id": "1q7fEhFyH9XeCfF6L52VrWTHmP6PkC6ZM",
+  "bytes": 1808791,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR015__FL_Miami_2025.pdf",
+  "drive_file_id": "1-0ysEMZ7EMYWMgPyuXGzRH_1M6tBVpnM",
+  "bytes": 28508088,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR014__DE_Sussex_County_2025.pdf",
+  "drive_file_id": "1vuw91uM8RJTuuDAS9BKcHRPpLeP1MMu8",
+  "bytes": 12704827,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR011__CT_Darien_2025.pdf",
+  "drive_file_id": "1-9R4ccOF7J976gyzT_JhkkHQ57NBsrPf",
+  "bytes": 1643754,
+  "tested": true,
+  "reason_untested": ""
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR007__CA_Carlsbad_2025.pdf",
+  "drive_file_id": "1heA7zRly-XAXBzwC2EnxNJkFqB_lEh6B",
+  "bytes": 13539883,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "ACFR004__AL_Jefferson_County_2025.pdf",
+  "drive_file_id": "1F11sBJ1em7S6DU--2KdphsVrF0mtkERw",
+  "bytes": 6725074,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ },
+ {
+  "drive_folder": "Validation_30_HOLDOUT",
+  "pdf_filename": "BART_FY2025_original_secured.pdf",
+  "drive_file_id": "1OvjzdWNcAqiC8m5dCj4lJFObec1LBwk3",
+  "bytes": 6949192,
+  "tested": false,
+  "reason_untested": "over Drive connector download size limit (~6.2 MB)"
+ }
+]

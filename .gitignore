@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+ocr_cache/
+progress.sqlite*
+*.tmp

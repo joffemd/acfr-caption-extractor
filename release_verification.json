@@ -1,0 +1,19 @@
+{
+  "version": "0.2.1",
+  "tests_passed": 19,
+  "tests_skipped": 0,
+  "resume_csv_byte_identical": true,
+  "source_sha256": {
+    "build_reference.py": "895434747de3faea6dff601e6f6307f0d077dde8b5938cd068a5ab125d4aa555",
+    "acfr_extractor.py": "a10cb89376d7cd8c890f9a7f72c32b3f4c79e725764f261aaef519683e9126d2",
+    "legacy_clean_amount.py": "f158f16af20763f6832bcef72a154e4cfed00b9f6913a1d5e038dde3a55c591a"
+  },
+  "result_sha256": {
+    "validation_report.csv": "7d3e00aa2d90363d4ffb014d5c6697f418ea434e34c15b10883ff7350a3c1ee9",
+    "statement_inventory.csv": "2dcc780cb0f732b08fe4fd18889401d5ae10a6f08eb47ed39f6fffbb4935b2f1",
+    "caption_mapping.csv": "12f8ebc45d14c1a6250a7d4a03d373aad734298348df7de36191e12c4a8dbda4",
+    "caption_occurrences.csv": "7fe26420a224ef499e113581887dd7c01b1e09c97c75018794ecd8e59d1c3342",
+    "caption_frequencies.csv": "4670838da943d24e8e4e921af2530785942663625b72c40d3bfe1a40af6fbed3",
+    "processing_log.csv": "f3d58ee2ef41c6328b88d77a4bb0c114b81702ff9b8bae1abfd7fdf5ca478422"
+  }
+}

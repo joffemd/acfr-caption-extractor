@@ -1,19 +1,51 @@
 {
-  "version": "0.2.1",
-  "tests_passed": 19,
-  "tests_skipped": 0,
-  "resume_csv_byte_identical": true,
-  "source_sha256": {
-    "build_reference.py": "895434747de3faea6dff601e6f6307f0d077dde8b5938cd068a5ab125d4aa555",
-    "acfr_extractor.py": "a10cb89376d7cd8c890f9a7f72c32b3f4c79e725764f261aaef519683e9126d2",
-    "legacy_clean_amount.py": "f158f16af20763f6832bcef72a154e4cfed00b9f6913a1d5e038dde3a55c591a"
+  "version": "0.3.0",
+  "source_sha256": "3a0911f026dc59d1d63775113e4c1d2f8e851680dbffd2a2f934b904ad7d1be3",
+  "legacy_component_sha256": "f158f16af20763f6832bcef72a154e4cfed00b9f6913a1d5e038dde3a55c591a",
+  "baseline_git_commit": "9a3bd98e52b061f0324d21c91a4360c11f309809",
+  "baseline_source_sha256": "a10cb89376d7cd8c890f9a7f72c32b3f4c79e725764f261aaef519683e9126d2",
+  "runtime": "Python 3.12 / PyMuPDF 1.26.7 / Linux / local Tesseract",
+  "automated_tests_passed": 33,
+  "automated_tests_skipped": 0,
+  "sample_pdfs": 22,
+  "pdf_pages": 4266,
+  "statements_extracted": 124,
+  "caption_heading_rows": 5671,
+  "inventory_exact_checks": {
+    "new_baseline": [
+      68,
+      171
+    ],
+    "new_final": [
+      171,
+      171
+    ],
+    "original_final": [
+      27,
+      27
+    ],
+    "combined_final": [
+      198,
+      198
+    ]
   },
-  "result_sha256": {
-    "validation_report.csv": "7d3e00aa2d90363d4ffb014d5c6697f418ea434e34c15b10883ff7350a3c1ee9",
-    "statement_inventory.csv": "2dcc780cb0f732b08fe4fd18889401d5ae10a6f08eb47ed39f6fffbb4935b2f1",
-    "caption_mapping.csv": "12f8ebc45d14c1a6250a7d4a03d373aad734298348df7de36191e12c4a8dbda4",
-    "caption_occurrences.csv": "7fe26420a224ef499e113581887dd7c01b1e09c97c75018794ecd8e59d1c3342",
-    "caption_frequencies.csv": "4670838da943d24e8e4e921af2530785942663625b72c40d3bfe1a40af6fbed3",
-    "processing_log.csv": "f3d58ee2ef41c6328b88d77a4bb0c114b81702ff9b8bae1abfd7fdf5ca478422"
-  }
+  "checked_captions_headings": [
+    191,
+    191
+  ],
+  "original_caption_token_stream_pages": [
+    40,
+    40
+  ],
+  "resume_skipped_reports": 22,
+  "resume_csv_byte_identical": true,
+  "final_csv_sha256": {
+    "validation_report.csv": "70759410eef344b41c1b90a5e9c26d57cb17ffd6b6fc8c979b32f43244c49e55",
+    "statement_inventory.csv": "64e961f178abe403f3dbdfe1e79d7b46fb9883828dca1ed326f46d20a4281892",
+    "caption_mapping.csv": "628c5a96d72220d2f0ceadc9badc827197a6bac1b9aebfe15c561403e4fcfafa",
+    "caption_occurrences.csv": "a2919352ee332bc6377d52eab5bd43c66d7c75cf366246b05a62c9d46017b387",
+    "caption_frequencies.csv": "d56913eff9e2c25bb0d855b2d490e98b9a6085ac9416bf62206ce2673aa4bde6",
+    "processing_log.csv": "72a1452ad931366fcb692be123219ca34f12067b4650150b0d27dbd130c2a8ff"
+  },
+  "reference_sha256": "b3ef31766196376a73b5358c52b57327c9f5bc3100bcc7bc172f5f254a27de77"
 }

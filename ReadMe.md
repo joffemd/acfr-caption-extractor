@@ -1,4 +1,4 @@
-# ACFR Caption Extractor 0.2.1
+# ACFR Caption Extractor 0.3.0
 
 An offline, deterministic Python 3.12 development release for financial-statement
 caption research. No LLM, paid processing API, Google account, or network connection
@@ -65,3 +65,23 @@ AGPL/commercial licensing; use must comply with the selected license. Tesseract
 uses Apache 2.0. The uploaded legacy archive did not include a license file; this
 package does not invent distribution rights for its reused component. Reuse is
 for the user's supplied project; resolve rights before broader redistribution.
+
+## Expanded validation (0.3.0)
+
+Tested the original three reports plus 19 additional uploaded reports (22 PDFs,
+4,266 pages). See [EXPANDED_VALIDATION.md](EXPANDED_VALIDATION.md) and
+[validation/expanded/final/validation_report.csv](validation/expanded/final/validation_report.csv).
+All 198 statement type/status/page-membership checks and 191 checked caption/heading
+occurrences match the reviewed regression reference. 33 automated tests pass.
+The original three retain their caption text across all 40 statement pages;
+merged headings are now separate rows. These are regression measurements, not a
+claim of accuracy on an unseen production universe.
+
+```text
+python acfr_extractor.py --input "all 22 sample PDFs" --output "results" --ocr auto --workers 2 --metadata validation/expanded/sample_metadata.json --gold validation/expanded/combined_reference.json --resume
+```
+
+The six combined CSV outputs are in validation/expanded/final. The preserved
+0.2.1 baseline results for the 19 new reports are in validation/expanded/baseline_*.
+PDFs, OCR images/caches, and checkpoints are not committed. For the complete
+updated release, use releases/acfr-caption-extractor-0.3.0.zip.

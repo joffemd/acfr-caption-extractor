@@ -111,3 +111,45 @@ caption lists independently, and extend the reference. Do not equate the small
 sample's metrics with generalization to 25,000 PDFs. Include actual enterprise-only
 and scanned government reports in the next validation set; current edge tests for
 those reporting models are synthetic.
+
+## Changes in 0.3.0
+
+Rotated PDF geometry is normalized to the displayed page before grouping words;
+vertical decorative sidebars are omitted. Logical text still identifies a vertical
+TOC title. Image-block indices cannot shift the text-direction lookup.
+
+Coordinates are PDF points in the upright extraction frame. page_rotation records
+the PDF /Rotate value. ocr_rotation records any additional clockwise image rotation
+used for OCR. Native/OCR frame transforms must be inverted before mapping boxes to
+raw PDF content. An OCR rotation of 90 or 270 swaps frame width and height.
+
+TOC page ranges use both endpoints. Range barriers include reconciliations, component
+units and notes. The next contents entry can bound an untitled continuation, including
+an amounts-only right panel; such pages remain in the inventory without invented
+caption rows. Title-only See Following Page placeholders are omitted. Fallback
+bookmark windows and auto-OCR candidate ranges are limited to 12 pages; unusual
+long or undocumented continuations still need review.
+
+A combining title is admitted only when mapped evidence locates it in the basic
+statement section, as in Freehold's B-4 proprietary statement. Supplementary
+combining statements, college foundations, affiliated organizations and grant
+program statements do not determine the primary reporting model. Readable complete
+TOCs can establish absence for two-statement pension and three-statement enterprise
+models, not only governments reporting four or more classes. PDF permission warnings
+are retained even when openable text and a readable TOC establish the inventory.
+
+Local OCR first scans suspect pages, then interprets recovered TOCs. Unreadable
+TOC-linked statement starts can retry orientation using Tesseract OSD plus candidate
+rotations scored by English/accounting vocabulary. No new Python dependency is needed.
+A severely damaged OCR title may use a mapped basic TOC start plus corroborating
+accounting structure, with warning ocr_title_from_toc. Unknowns still require review.
+Scans without a usable TOC can require extensive OCR and manual orientation review.
+
+Dotted leaders are removed as layout furniture. A label is not wrapped into the next
+row when the next row is materially more indented; this preserves parent headings.
+Normalization equivalence rules themselves are unchanged.
+
+The original verified_reference.json remains unchanged. The expanded combined
+reference is validation/expanded/combined_reference.json, with exact inventory for
+22 reports and five checked caption pages. See EXPANDED_VALIDATION.md for scope and
+limitations. A zero-error processing log still does not certify caption completeness.

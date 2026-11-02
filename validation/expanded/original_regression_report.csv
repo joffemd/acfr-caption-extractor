@@ -1,0 +1,35 @@
+﻿scope,metric,numerator,denominator,value,status,details
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[34]; actual=[34]; status=present
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,"expected=[35, 36]; actual=[35, 36]; status=present"
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,"expected=[37, 38]; actual=[37, 38]; status=present"
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,"expected=[41, 42]; actual=[41, 42]; status=present"
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[45, 46, 47, 48]; actual=[45, 46, 47, 48]; status=present"
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,"expected=[49, 50]; actual=[49, 50]; status=present"
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,"expected=[51, 52, 53, 54]; actual=[51, 52, 53, 54]; status=present"
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR002__AK_State_of_Alaska_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[26, 27]; actual=[26, 27]; status=present"
+ACFR002__AK_State_of_Alaska_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,"expected=[28, 29]; actual=[28, 29]; status=present"
+ACFR002__AK_State_of_Alaska_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[30]; actual=[30]; status=present
+ACFR002__AK_State_of_Alaska_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[32]; actual=[32]; status=present
+ACFR002__AK_State_of_Alaska_2025.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[34, 35]; actual=[34, 35]; status=present"
+ACFR002__AK_State_of_Alaska_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[37]; actual=[37]; status=present
+ACFR002__AK_State_of_Alaska_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,"expected=[38, 39]; actual=[38, 39]; status=present"
+ACFR002__AK_State_of_Alaska_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[40]; actual=[40]; status=present
+ACFR002__AK_State_of_Alaska_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[41]; actual=[41]; status=present
+ACFR003__AL_Auburn_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[83, 84]; actual=[83, 84]; status=present"
+ACFR003__AL_Auburn_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,expected=[85]; actual=[85]; status=present
+ACFR003__AL_Auburn_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[86]; actual=[86]; status=present
+ACFR003__AL_Auburn_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[87]; actual=[87]; status=present
+ACFR003__AL_Auburn_2025.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[91]; actual=[91]; status=present
+ACFR003__AL_Auburn_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[92]; actual=[92]; status=present
+ACFR003__AL_Auburn_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,expected=[93]; actual=[93]; status=present
+ACFR003__AL_Auburn_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[94]; actual=[94]; status=present
+ACFR003__AL_Auburn_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[95]; actual=[95]; status=present
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:GW_NET_POSITION:page34,caption_precision,56,56,1.0,measured,"{""missing"": [], ""extra"": []}"
+ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf:GW_NET_POSITION:page34,caption_recall,56,56,1.0,measured,"{""missing"": [], ""extra"": []}"
+ACFR002__AK_State_of_Alaska_2025.pdf:GW_NET_POSITION:page26,caption_precision,37,37,1.0,measured,"{""missing"": [], ""extra"": []}"
+ACFR002__AK_State_of_Alaska_2025.pdf:GW_NET_POSITION:page26,caption_recall,37,37,1.0,measured,"{""missing"": [], ""extra"": []}"
+ACFR003__AL_Auburn_2025.pdf:GW_NET_POSITION:page83,caption_precision,37,37,1.0,measured,"{""missing"": [], ""extra"": []}"
+ACFR003__AL_Auburn_2025.pdf:GW_NET_POSITION:page83,caption_recall,37,37,1.0,measured,"{""missing"": [], ""extra"": []}"
+original_three,statement_identification_accuracy,27,27,1,measured,Exact original-three status/page membership; caption checks use unchanged original reference.

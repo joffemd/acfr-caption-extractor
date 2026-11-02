@@ -54,7 +54,8 @@ class RulesTests(unittest.TestCase):
   self.assertFalse(a.bad_text('Statement of Net Position Government-wide Assets cash and investments Total assets '+ 'Cash and investments '*20))
  def test_toc_wrapped_and_reconciliation(self):
   text='TABLE OF CONTENTS\nBasic Financial Statements\nGovernmental Funds\nStatement of Revenues, Expenditures, and\nChanges in Fund Balances ..... I – 24\nReconciliation of the Change in Fund Balances to\nthe Statement of Activities ..... I – 25'
-  self.assertEqual([e['type'] for e in a.toc_entries([{'text':text}])],['GF_OPERATING'])
+  self.assertEqual([e['type'] for e in a.toc_entries([{'text':text}]) if e['type'] in a.TYPES],['GF_OPERATING'])
+  self.assertEqual([e['label'] for e in a.toc_entries([{'text':text}]) if e['type']=='EXCLUDED'],['I-25'])
  def test_wrapped_caption_and_heading(self):
   words=[]
   for y,label,value in [(100,'ASSETS:',None),(120,'Restricted investments:',None),(140,'Loans and notes','100'),(170,'Total assets','100'),(195,'Total liabilities','50')]:

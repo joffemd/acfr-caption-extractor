@@ -1,3 +1,5 @@
+> Historical 0.2.1 report. For the current 0.3.0 release and 22-report validation, see [EXPANDED_VALIDATION.md](EXPANDED_VALIDATION.md).
+
 # ACFR caption extraction development report — release 0.2.1
 
 ## Outcome

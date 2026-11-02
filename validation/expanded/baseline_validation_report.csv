@@ -1,0 +1,177 @@
+﻿scope,metric,numerator,denominator,value,status,details
+ACFR029__KS_Lawrence_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[31, 32]; actual=[31, 32]; status=present"
+ACFR029__KS_Lawrence_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,expected=[33]; actual=[33]; status=present
+ACFR029__KS_Lawrence_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[34]; actual=[34]; status=present
+ACFR029__KS_Lawrence_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[36]; actual=[36]; status=present
+ACFR029__KS_Lawrence_2025.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[38, 39]; actual=[38, 39]; status=present"
+ACFR029__KS_Lawrence_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[40]; actual=[40]; status=present
+ACFR029__KS_Lawrence_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,"expected=[41, 42]; actual=[41, 42]; status=present"
+ACFR029__KS_Lawrence_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR029__KS_Lawrence_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR041__MI_Kalamazoo_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[46, 47, 48]; actual=[]; status=unknown"
+ACFR041__MI_Kalamazoo_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[49]; actual=[]; status=unknown
+ACFR041__MI_Kalamazoo_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,"expected=[50, 51]; actual=[]; status=unknown"
+ACFR041__MI_Kalamazoo_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,"expected=[54, 55]; actual=[]; status=unknown"
+ACFR041__MI_Kalamazoo_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[58, 59, 60]; actual=[]; status=unknown"
+ACFR041__MI_Kalamazoo_2025.pdf:PF_OPERATING,statement_exact_pages,0,1,0,measured,"expected=[61, 62]; actual=[]; status=unknown"
+ACFR041__MI_Kalamazoo_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,"expected=[63, 64, 65]; actual=[]; status=unknown"
+ACFR041__MI_Kalamazoo_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[66]; actual=[]; status=unknown
+ACFR041__MI_Kalamazoo_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,"expected=[67, 68]; actual=[]; status=unknown"
+ACFR052__ND_Fargo_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[31, 32]; actual=[31, 32]; status=present"
+ACFR052__ND_Fargo_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[33]; actual=[]; status=unknown
+ACFR052__ND_Fargo_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[34]; actual=[34]; status=present
+ACFR052__ND_Fargo_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[36]; actual=[36]; status=present
+ACFR052__ND_Fargo_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[39, 40, 41]; actual=[]; status=unknown"
+ACFR052__ND_Fargo_2025.pdf:PF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[42]; actual=[]; status=unknown
+ACFR052__ND_Fargo_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,"expected=[43, 44]; actual=[]; status=unknown"
+ACFR052__ND_Fargo_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[45]; actual=[45]; status=present
+ACFR052__ND_Fargo_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[46]; actual=[46]; status=present
+ACFR055__NE_Omaha_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[27, 28]; actual=[]; status=unknown"
+ACFR055__NE_Omaha_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,"expected=[29, 30]; actual=[]; status=unknown"
+ACFR055__NE_Omaha_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[31]; actual=[31]; status=present
+ACFR055__NE_Omaha_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[33]; actual=[33]; status=present
+ACFR055__NE_Omaha_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[35, 36]; actual=[]; status=unknown"
+ACFR055__NE_Omaha_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[37]; actual=[37]; status=present
+ACFR055__NE_Omaha_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,"expected=[38, 39]; actual=[39]; status=present"
+ACFR055__NE_Omaha_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[40]; actual=[40]; status=present
+ACFR055__NE_Omaha_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[41]; actual=[41]; status=present
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[40]; actual=[40]; status=present
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,expected=[41]; actual=[41]; status=present
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,"expected=[42, 43]; actual=[42]; status=present"
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,"expected=[46, 47]; actual=[]; status=unknown"
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:PF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[27]; actual=[]; status=unknown
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,expected=[28]; actual=[28]; status=present
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[29]; actual=[29]; status=present
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,"expected=[31]; actual=[31, 32]; status=present"
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:PF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR089__CA_Tiburon_Fire_Protection_District_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR100__IL_Oakton_College_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR100__IL_Oakton_College_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[51]; status=present
+ACFR100__IL_Oakton_College_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR100__IL_Oakton_College_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[140]; status=present
+ACFR100__IL_Oakton_College_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[45, 46]; actual=[]; status=absent"
+ACFR100__IL_Oakton_College_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[47]; actual=[47]; status=present
+ACFR100__IL_Oakton_College_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,"expected=[48, 49]; actual=[48]; status=present"
+ACFR100__IL_Oakton_College_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR100__IL_Oakton_College_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[32, 33]; actual=[32]; status=present"
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,"expected=[34, 35]; actual=[34]; status=present"
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,"expected=[36, 37]; actual=[36]; status=present"
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,"expected=[40, 41]; actual=[40]; status=present"
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[43]; actual=[43]; status=present
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[44]; actual=[44]; status=present
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,expected=[45]; actual=[45]; status=present
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR101__IL_Park_District_of_Oak_Park_2024.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[31, 32]; actual=[31, 32]; status=present"
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[33]; actual=[33]; status=present
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,"expected=[34, 35]; actual=[35]; status=present"
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:PF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[28]; actual=[28]; status=present
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[29]; actual=[]; status=unknown
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[34]; actual=[]; status=unknown
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[35]; actual=[]; status=unknown
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,"expected=[37, 38]; actual=[37, 38]; status=present"
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[39]; actual=[]; status=unknown
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[42]; actual=[]; status=unknown
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[43]; actual=[43]; status=present
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,expected=[44]; actual=[]; status=unknown
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,"expected=[39, 40]; actual=[39, 40]; status=present"
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[41]; actual=[]; status=unknown
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,"expected=[45, 46, 47]; actual=[]; status=unknown"
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,"expected=[49, 50, 51]; actual=[]; status=unknown"
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:PF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[36, 37]; actual=[]; status=unknown"
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[38]; actual=[38]; status=present
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,expected=[39]; actual=[39]; status=present
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[40]; actual=[]; status=unknown
+ACFR109__NY_Albany_County_Airport_Authority_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[41]; actual=[]; status=unknown
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[42]; actual=[]; status=unknown
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,expected=[44]; actual=[44]; status=present
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[46]; actual=[46]; status=present
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[48]; actual=[48]; status=present
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[54]; actual=[54]; status=present
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[55]; actual=[55]; status=present
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,expected=[56]; actual=[56]; status=present
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR111__OH_Lakewood_Local_School_District_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:PF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[46]; actual=[46]; status=present
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[47]; actual=[47]; status=present
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,expected=[48]; actual=[48]; status=present
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[44]; actual=[44]; status=present
+ACFR113__OR_Oregon_Public_Employees_Retirement_System_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[45]; actual=[45]; status=present
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[34, 35]; actual=[]; status=unknown"
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[36]; actual=[36]; status=present
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,"expected=[37, 38]; actual=[37, 38]; status=present"
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR116__TX_Panola_College_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR116__TX_Panola_College_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[27]; status=present
+ACFR116__TX_Panola_College_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR116__TX_Panola_College_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR116__TX_Panola_College_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[24]; actual=[]; status=unknown
+ACFR116__TX_Panola_College_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[26]; actual=[26]; status=present
+ACFR116__TX_Panola_College_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,"expected=[28, 29]; actual=[76]; status=present"
+ACFR116__TX_Panola_College_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR116__TX_Panola_College_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:GW_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:GW_ACTIVITIES,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:GF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[]; actual=[]; status=absent
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[26, 27]; actual=[26]; status=present"
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[28]; actual=[28]; status=present
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,1,1,1,measured,expected=[29]; actual=[29]; status=present
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:FF_NET_POSITION,statement_exact_pages,1,1,1,measured,expected=[30]; actual=[30]; status=present
+ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf:FF_CHANGES,statement_exact_pages,1,1,1,measured,expected=[31]; actual=[31]; status=present
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:GW_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[35]; status=present
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:GW_ACTIVITIES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:GF_BALANCE_SHEET,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:GF_OPERATING,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:PF_NET_POSITION,statement_exact_pages,0,1,0,measured,"expected=[34, 35]; actual=[34]; status=present"
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:PF_OPERATING,statement_exact_pages,1,1,1,measured,expected=[36]; actual=[36]; status=present
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:PF_CASH_FLOWS,statement_exact_pages,0,1,0,measured,"expected=[37, 38]; actual=[37]; status=present"
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:FF_NET_POSITION,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+ACFR120__WA_Seattle_Housing_Authority_2025.pdf:FF_CHANGES,statement_exact_pages,0,1,0,measured,expected=[]; actual=[]; status=unknown
+reference_statements,statement_identification_accuracy,68,171,0.39766081871345027,measured,Exact PDF page membership and absent/present status
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:FF_CHANGES:page29,caption_precision,0,0,,undefined,"{""missing"": [""additions"", ""contributions"", ""employee"", ""employer"", ""direct aid state city district"", ""total contributions"", ""investment income"", ""net appreciation in fair value of investments"", ""investment expense"", ""net investment gain"", ""securities lending activities"", ""securities lending income"", ""securities lending expenses"", ""borrower rebates"", ""management fees"", ""total securities lending expenses"", ""net income from securities lending"", ""total net investment gain"", ""other income"", ""total additions"", ""deductions"", ""retirement benefits paid"", ""earnings limitation savings account"", ""refunds of contributions to members"", ""administrative expenses"", ""total deductions"", ""net increase"", ""net position restricted for pensions"", ""beginning of year"", ""end of year""], ""extra"": []}"
+ACFR105__MN_Minnesota_Teachers_Retirement_Association_2025.pdf:FF_CHANGES:page29,caption_recall,0,30,0.0,measured,"{""missing"": [""additions"", ""contributions"", ""employee"", ""employer"", ""direct aid state city district"", ""total contributions"", ""investment income"", ""net appreciation in fair value of investments"", ""investment expense"", ""net investment gain"", ""securities lending activities"", ""securities lending income"", ""securities lending expenses"", ""borrower rebates"", ""management fees"", ""total securities lending expenses"", ""net income from securities lending"", ""total net investment gain"", ""other income"", ""total additions"", ""deductions"", ""retirement benefits paid"", ""earnings limitation savings account"", ""refunds of contributions to members"", ""administrative expenses"", ""total deductions"", ""net increase"", ""net position restricted for pensions"", ""beginning of year"", ""end of year""], ""extra"": []}"
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:PF_NET_POSITION:page34,caption_precision,0,0,,undefined,"{""missing"": [""assets"", ""current assets"", ""cash and cash equivalents"", ""cash and cash equivalents"", ""cash and cash equivalents"", ""accounts receivable net of provision for doubtful accounts"", ""due from component units"", ""inventories"", ""prepaid expenses"", ""restricted current assets"", ""investments"", ""investments"", ""total current assets"", ""noncurrent assets"", ""capital assets net of accumulated depreciation"", ""land"", ""construction in progress"", ""building and improvements"", ""equipment and vehicles"", ""leases"", ""subscriptions"", ""accounts receivable"", ""restricted noncurrent assets"", ""loans to students net"", ""total noncurrent assets"", ""total assets"", ""deferred outflows of resources"", ""deferred amount on debt refunding"", ""deferred outflows related to net pension liability"", ""deferred outflows related to net opeb liability"", ""total deferred outflows of resources""], ""extra"": []}"
+ACFR114__SC_Coastal_Carolina_University_2025.pdf:PF_NET_POSITION:page34,caption_recall,0,31,0.0,measured,"{""missing"": [""assets"", ""current assets"", ""cash and cash equivalents"", ""cash and cash equivalents"", ""cash and cash equivalents"", ""accounts receivable net of provision for doubtful accounts"", ""due from component units"", ""inventories"", ""prepaid expenses"", ""restricted current assets"", ""investments"", ""investments"", ""total current assets"", ""noncurrent assets"", ""capital assets net of accumulated depreciation"", ""land"", ""construction in progress"", ""building and improvements"", ""equipment and vehicles"", ""leases"", ""subscriptions"", ""accounts receivable"", ""restricted noncurrent assets"", ""loans to students net"", ""total noncurrent assets"", ""total assets"", ""deferred outflows of resources"", ""deferred amount on debt refunding"", ""deferred outflows related to net pension liability"", ""deferred outflows related to net opeb liability"", ""total deferred outflows of resources""], ""extra"": []}"

@@ -17,6 +17,7 @@ from pathlib import Path
 import re
 import sqlite3
 import subprocess
+import sys
 import tempfile
 import time
 import unicodedata
@@ -407,14 +408,14 @@ OCR_ENV={**os.environ,'OMP_THREAD_LIMIT':'1'}
 def tesseract(args,timeouts=(120,360),check=True):
  """Run Tesseract, retrying once with a longer timeout on a slow page."""
  for n,limit in enumerate(timeouts):
-  try:return subprocess.run(['tesseract',*args],capture_output=True,text=True,timeout=limit,check=check,env=OCR_ENV)
+  try:return subprocess.run(['tesseract',*args],capture_output=True,encoding='utf-8',errors='replace',timeout=limit,check=check,env=OCR_ENV)
   except subprocess.TimeoutExpired:
    if n==len(timeouts)-1:raise
 
 def ocr_rows(page,cache,force=False):
  """Tesseract TSV with a bounded local orientation retry for unreadable OCR."""
  if cache.exists() and not force:
-  cached=json.loads(cache.read_text())
+  cached=json.loads(cache.read_text(encoding='utf-8'))
   return cached
  dpi=220
  def quality(rows):
@@ -447,7 +448,7 @@ def ocr_rows(page,cache,force=False):
     if score>best_score:rows=candidate;best_score=score
     if score>.35:break
  cache.parent.mkdir(parents=True,exist_ok=True)
- tmp=cache.with_suffix('.tmp');tmp.write_text(json.dumps(rows));os.replace(tmp,cache)
+ tmp=cache.with_suffix('.tmp');tmp.write_text(json.dumps(rows),encoding='utf-8');os.replace(tmp,cache)
  return rows
 
 def page_header(rows,height):
@@ -949,7 +950,7 @@ def validate(out,gold,rules):
  else:
   with (out/'statement_inventory.csv').open(encoding='utf-8-sig') as f:inv=list(csv.DictReader(f))
   with (out/'caption_occurrences.csv').open(encoding='utf-8-sig') as f:occ=list(csv.DictReader(f))
-  ref=json.loads(Path(gold).read_text());true=0;total=0
+  ref=json.loads(Path(gold).read_text(encoding='utf-8'));true=0;total=0
   for name,statements in ref.get('statements',{}).items():
    for typ,expected in statements.items():
     found=next((r for r in inv if r['pdf_filename']==name and r['statement_type']==typ),None)
@@ -1022,9 +1023,9 @@ def run_isolated(tasks,workers,timeout,save):
 def run(args):
  root=Path(args.input).resolve();out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=True)
  if not root.is_dir():raise ValueError('Input must be a directory containing PDFs')
- rules=json.loads(Path(args.rules).read_text());metadata=json.loads(Path(args.metadata).read_text()) if args.metadata else {}
+ rules=json.loads(Path(args.rules).read_text(encoding='utf-8'));metadata=json.loads(Path(args.metadata).read_text(encoding='utf-8')) if args.metadata else {}
  options={'ocr':args.ocr}
- config_id=hashlib.sha256((Path(__file__).read_text()+Path(__file__).with_name('legacy_clean_amount.py').read_text()+json.dumps(options,sort_keys=True)+json.dumps(metadata,sort_keys=True)).encode()).hexdigest()
+ config_id=hashlib.sha256((Path(__file__).read_text(encoding='utf-8')+Path(__file__).with_name('legacy_clean_amount.py').read_text(encoding='utf-8')+json.dumps(options,sort_keys=True)+json.dumps(metadata,sort_keys=True)).encode()).hexdigest()
  db=sqlite3.connect(out/'progress.sqlite');db.execute('CREATE TABLE IF NOT EXISTS results(source_path TEXT PRIMARY KEY,fingerprint TEXT,config_id TEXT,payload TEXT)')
  files=sorted(p for p in root.rglob('*') if p.is_file() and p.suffix.lower()=='.pdf' and not p.is_relative_to(out))
  if not files:raise ValueError('No PDF inputs found')
@@ -1069,6 +1070,10 @@ def main():
  parser.add_argument('--occurrences',choices=['csv','sqlite','both'],default='csv',help='Format for per-caption detail: csv (caption_occurrences.csv), sqlite (caption_occurrences.sqlite, recommended for large runs) or both')
  parser.add_argument('--timeout',type=int,default=1800,help='Seconds allowed per PDF before its worker is stopped and the PDF is logged as failed (0 = no limit)')
  args=parser.parse_args()
+ # Windows consoles and redirected output use a code page that cannot show every
+ # entity name (for example "\u02bbAina"); never let a progress line crash a run.
+ for stream in (sys.stdout,sys.stderr):
+  if hasattr(stream,'reconfigure'):stream.reconfigure(errors='backslashreplace')
  if args.workers<1:parser.error('--workers must be positive')
  export_results.occurrences_format=args.occurrences
  try:return run(args)

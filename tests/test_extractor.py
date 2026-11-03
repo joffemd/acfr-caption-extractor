@@ -1,6 +1,7 @@
 import csv
 import hashlib
 import json
+import os
 from pathlib import Path
 import sqlite3
 import subprocess
@@ -11,7 +12,7 @@ import pymupdf
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import acfr_extractor as a
 
-RULES=json.loads(a.CONFIG.read_text())
+RULES=json.loads(a.CONFIG.read_text(encoding='utf-8'))
 
 class RulesTests(unittest.TestCase):
  def test_all_nine_titles(self):
@@ -86,6 +87,18 @@ class PipelineTests(unittest.TestCase):
   return subprocess.run([sys.executable,str(Path(a.__file__)),'--input',str(self.inputs),'--output',str(self.output),*extra],capture_output=True,text=True)
  def read(self,name):
   with (self.output/name).open(encoding='utf-8-sig') as f:return list(csv.DictReader(f))
+ def test_windows_code_page_and_unicode_names(self):
+  # Windows reads files and writes redirected output with a legacy code page
+  # (cp1252), not UTF-8. Every file access must name its encoding, and a name
+  # cp1252 cannot show (from acfrs.reason.org) must not crash progress output.
+  name='HI Kanu o ka \u02bb\u0100ina School 2025.pdf';make_report(self.inputs/name)
+  env=dict(os.environ,PYTHONIOENCODING='cp1252',PYTHONWARNDEFAULTENCODING='1')
+  r=subprocess.run([sys.executable,str(Path(a.__file__)),'--input',str(self.inputs),'--output',str(self.output)],capture_output=True,encoding='cp1252',errors='replace',env=env)
+  self.assertEqual(r.returncode,0,r.stderr)
+  # openpyxl's own warning (a temp file it only names, never writes) is not ours.
+  self.assertEqual([l for l in r.stderr.splitlines() if 'EncodingWarning' in l and 'openpyxl' not in l],[])
+  self.assertIn(' HI Kanu o ka \\u02bb\\u0100ina School 2025.pdf',r.stdout)
+  self.assertEqual({x['government_name'] for x in self.read('statement_inventory.csv')},{'Kanu o ka \u02bb\u0100ina School, HI'})
  def test_after_page60_enterprise_and_resume(self):
   pdf=self.inputs/'district.pdf';make_report(pdf,70)
   r=self.invoke('--workers','2');self.assertEqual(r.returncode,0,r.stderr)
@@ -97,7 +110,7 @@ class PipelineTests(unittest.TestCase):
   r=self.invoke('--resume');self.assertEqual(r.returncode,0,r.stderr);self.assertIn('RESUME',r.stdout)
   self.assertEqual(before,(self.output/'caption_occurrences.csv').read_bytes())
   # A normalization change re-exports without rerunning extraction.
-  rules=self.root/'rules.json';rr=dict(RULES);rr['aliases']={'cash and cash equivalents':'cash equivalents'};rules.write_text(json.dumps(rr))
+  rules=self.root/'rules.json';rr=dict(RULES);rr['aliases']={'cash and cash equivalents':'cash equivalents'};rules.write_text(json.dumps(rr),encoding='utf-8')
   r=self.invoke('--resume','--rules',str(rules));self.assertIn('RESUME',r.stdout)
   self.assertIn('cash equivalents',[x['standardized_caption'] for x in self.read('caption_occurrences.csv')])
  def test_malformed_and_password_pdf(self):

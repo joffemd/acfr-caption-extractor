@@ -1,0 +1,2 @@
+﻿scope,metric,numerator,denominator,value,status,details
+all,validation,,,,not_measured,No verified reference supplied. Heuristic confidence is not measured accuracy.

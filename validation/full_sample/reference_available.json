@@ -1,0 +1,550 @@
+{
+ "method": "Assistant manually transcribed caption labels and headings from rendered PDF pages; statement membership checked against source TOCs and page titles. Not an external accountant audit. Auburn held out from modern rule tuning, though legacy baseline saw all reports. Assistant reviewed source TOCs and basic-statement page titles; Freehold source is scanned and reviewed via OCR. Numeric-only right-hand panels count as statement pages; title-only See Following Page placeholders and standalone reconciliations do not. No per-filename overrides are used by extraction. This is a regression reference, not an accountant-adjudicated gold set. Freehold pagination was checked against OCR page titles: PDF page 34 is printed page 26; PDF page 42 is the basic B-4 combining proprietary statement. Initial assumed +7 offset was corrected to +8 before final scoring. Caption references on Minnesota page 29 and Coastal Carolina page 34 were manually transcribed against rendered source pages, including all visible headings. They were not generated from extractor output.",
+ "statements": {
+  "ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf": {
+   "GW_NET_POSITION": [
+    34
+   ],
+   "GW_ACTIVITIES": [
+    35,
+    36
+   ],
+   "GF_BALANCE_SHEET": [
+    37,
+    38
+   ],
+   "GF_OPERATING": [
+    41,
+    42
+   ],
+   "PF_NET_POSITION": [
+    45,
+    46,
+    47,
+    48
+   ],
+   "PF_OPERATING": [
+    49,
+    50
+   ],
+   "PF_CASH_FLOWS": [
+    51,
+    52,
+    53,
+    54
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR029__KS_Lawrence_2025.pdf": {
+   "GW_NET_POSITION": [
+    31,
+    32
+   ],
+   "GW_ACTIVITIES": [
+    33
+   ],
+   "GF_BALANCE_SHEET": [
+    34
+   ],
+   "GF_OPERATING": [
+    36
+   ],
+   "PF_NET_POSITION": [
+    38,
+    39
+   ],
+   "PF_OPERATING": [
+    40
+   ],
+   "PF_CASH_FLOWS": [
+    41,
+    42
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR041__MI_Kalamazoo_2025.pdf": {
+   "GW_NET_POSITION": [
+    46,
+    47,
+    48
+   ],
+   "GW_ACTIVITIES": [
+    49
+   ],
+   "GF_BALANCE_SHEET": [
+    50,
+    51
+   ],
+   "GF_OPERATING": [
+    54,
+    55
+   ],
+   "PF_NET_POSITION": [
+    58,
+    59,
+    60
+   ],
+   "PF_OPERATING": [
+    61,
+    62
+   ],
+   "PF_CASH_FLOWS": [
+    63,
+    64,
+    65
+   ],
+   "FF_NET_POSITION": [
+    66
+   ],
+   "FF_CHANGES": [
+    67,
+    68
+   ]
+  },
+  "ACFR052__ND_Fargo_2025.pdf": {
+   "GW_NET_POSITION": [
+    31,
+    32
+   ],
+   "GW_ACTIVITIES": [
+    33
+   ],
+   "GF_BALANCE_SHEET": [
+    34
+   ],
+   "GF_OPERATING": [
+    36
+   ],
+   "PF_NET_POSITION": [
+    39,
+    40,
+    41
+   ],
+   "PF_OPERATING": [
+    42
+   ],
+   "PF_CASH_FLOWS": [
+    43,
+    44
+   ],
+   "FF_NET_POSITION": [
+    45
+   ],
+   "FF_CHANGES": [
+    46
+   ]
+  },
+  "ACFR055__NE_Omaha_2025.pdf": {
+   "GW_NET_POSITION": [
+    27,
+    28
+   ],
+   "GW_ACTIVITIES": [
+    29,
+    30
+   ],
+   "GF_BALANCE_SHEET": [
+    31
+   ],
+   "GF_OPERATING": [
+    33
+   ],
+   "PF_NET_POSITION": [
+    35,
+    36
+   ],
+   "PF_OPERATING": [
+    37
+   ],
+   "PF_CASH_FLOWS": [
+    38,
+    39
+   ],
+   "FF_NET_POSITION": [
+    40
+   ],
+   "FF_CHANGES": [
+    41
+   ]
+  },
+  "ACFR083__AZ_J_O_Combs_Unified_School_District_2025.pdf": {
+   "GW_NET_POSITION": [
+    40
+   ],
+   "GW_ACTIVITIES": [
+    41
+   ],
+   "GF_BALANCE_SHEET": [
+    42,
+    43
+   ],
+   "GF_OPERATING": [
+    46,
+    47
+   ],
+   "PF_NET_POSITION": [],
+   "PF_OPERATING": [],
+   "PF_CASH_FLOWS": [],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR100__IL_Oakton_College_2025.pdf": {
+   "GW_NET_POSITION": [],
+   "GW_ACTIVITIES": [],
+   "GF_BALANCE_SHEET": [],
+   "GF_OPERATING": [],
+   "PF_NET_POSITION": [
+    45,
+    46
+   ],
+   "PF_OPERATING": [
+    47
+   ],
+   "PF_CASH_FLOWS": [
+    48,
+    49
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR101__IL_Park_District_of_Oak_Park_2024.pdf": {
+   "GW_NET_POSITION": [
+    32,
+    33
+   ],
+   "GW_ACTIVITIES": [
+    34,
+    35
+   ],
+   "GF_BALANCE_SHEET": [
+    36,
+    37
+   ],
+   "GF_OPERATING": [
+    40,
+    41
+   ],
+   "PF_NET_POSITION": [
+    43
+   ],
+   "PF_OPERATING": [
+    44
+   ],
+   "PF_CASH_FLOWS": [
+    45
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR102__IN_Fort_Wayne_Allen_County_Airport_Authority_2025.pdf": {
+   "GW_NET_POSITION": [],
+   "GW_ACTIVITIES": [],
+   "GF_BALANCE_SHEET": [],
+   "GF_OPERATING": [],
+   "PF_NET_POSITION": [
+    31,
+    32
+   ],
+   "PF_OPERATING": [
+    33
+   ],
+   "PF_CASH_FLOWS": [
+    34,
+    35
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR107__NJ_Freehold_Regional_High_School_District_2025.pdf": {
+   "GW_NET_POSITION": [
+    34
+   ],
+   "GW_ACTIVITIES": [
+    35
+   ],
+   "GF_BALANCE_SHEET": [
+    37,
+    38
+   ],
+   "GF_OPERATING": [
+    39
+   ],
+   "PF_NET_POSITION": [
+    42
+   ],
+   "PF_OPERATING": [
+    43
+   ],
+   "PF_CASH_FLOWS": [
+    44
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR108__NV_Las_Vegas_Clark_County_Library_District_2025.pdf": {
+   "GW_NET_POSITION": [
+    39,
+    40
+   ],
+   "GW_ACTIVITIES": [
+    41
+   ],
+   "GF_BALANCE_SHEET": [
+    45,
+    46,
+    47
+   ],
+   "GF_OPERATING": [
+    49,
+    50,
+    51
+   ],
+   "PF_NET_POSITION": [],
+   "PF_OPERATING": [],
+   "PF_CASH_FLOWS": [],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR109__NY_Albany_County_Airport_Authority_2025.pdf": {
+   "GW_NET_POSITION": [],
+   "GW_ACTIVITIES": [],
+   "GF_BALANCE_SHEET": [],
+   "GF_OPERATING": [],
+   "PF_NET_POSITION": [
+    36,
+    37
+   ],
+   "PF_OPERATING": [
+    38
+   ],
+   "PF_CASH_FLOWS": [
+    39
+   ],
+   "FF_NET_POSITION": [
+    40
+   ],
+   "FF_CHANGES": [
+    41
+   ]
+  },
+  "ACFR111__OH_Lakewood_Local_School_District_2025.pdf": {
+   "GW_NET_POSITION": [
+    42,
+    43
+   ],
+   "GW_ACTIVITIES": [
+    44,
+    45
+   ],
+   "GF_BALANCE_SHEET": [
+    46
+   ],
+   "GF_OPERATING": [
+    48,
+    49
+   ],
+   "PF_NET_POSITION": [
+    54
+   ],
+   "PF_OPERATING": [
+    55
+   ],
+   "PF_CASH_FLOWS": [
+    56
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR114__SC_Coastal_Carolina_University_2025.pdf": {
+   "GW_NET_POSITION": [],
+   "GW_ACTIVITIES": [],
+   "GF_BALANCE_SHEET": [],
+   "GF_OPERATING": [],
+   "PF_NET_POSITION": [
+    34,
+    35
+   ],
+   "PF_OPERATING": [
+    36
+   ],
+   "PF_CASH_FLOWS": [
+    37,
+    38
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR116__TX_Panola_College_2025.pdf": {
+   "GW_NET_POSITION": [],
+   "GW_ACTIVITIES": [],
+   "GF_BALANCE_SHEET": [],
+   "GF_OPERATING": [],
+   "PF_NET_POSITION": [
+    24
+   ],
+   "PF_OPERATING": [
+    26
+   ],
+   "PF_CASH_FLOWS": [
+    28,
+    29
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  },
+  "ACFR118__VA_Richmond_Metropolitan_Transportation_Authority_2025.pdf": {
+   "GW_NET_POSITION": [],
+   "GW_ACTIVITIES": [],
+   "GF_BALANCE_SHEET": [],
+   "GF_OPERATING": [],
+   "PF_NET_POSITION": [
+    26,
+    27
+   ],
+   "PF_OPERATING": [
+    28
+   ],
+   "PF_CASH_FLOWS": [
+    29
+   ],
+   "FF_NET_POSITION": [
+    30
+   ],
+   "FF_CHANGES": [
+    31
+   ]
+  },
+  "ACFR120__WA_Seattle_Housing_Authority_2025.pdf": {
+   "GW_NET_POSITION": [],
+   "GW_ACTIVITIES": [],
+   "GF_BALANCE_SHEET": [],
+   "GF_OPERATING": [],
+   "PF_NET_POSITION": [
+    34,
+    35
+   ],
+   "PF_OPERATING": [
+    36
+   ],
+   "PF_CASH_FLOWS": [
+    37,
+    38
+   ],
+   "FF_NET_POSITION": [],
+   "FF_CHANGES": []
+  }
+ },
+ "caption_pages": [
+  {
+   "pdf_filename": "ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf",
+   "statement_type": "GW_NET_POSITION",
+   "pdf_page": 34,
+   "captions": [
+    "ASSETS:",
+    "Equity in central treasury",
+    "Receivables (net of allowance for credit losses)",
+    "Due from other governments",
+    "Internal balances",
+    "Inventories",
+    "Prepaid items",
+    "Other assets",
+    "Temporarily restricted assets:",
+    "Equity in central treasury",
+    "Receivables (net of allowance for credit losses)",
+    "Intergovernmental receivables",
+    "Leases receivable, long-term",
+    "Net OPEB asset",
+    "Capital assets:",
+    "Lease assets, net of amortization",
+    "Subscription assets, net of amortization",
+    "Land",
+    "Plant and equipment, net of depreciation",
+    "Infrastructure, net of depreciation",
+    "Construction and infrastructure in progress",
+    "Total assets",
+    "DEFERRED OUTFLOWS OF RESOURCES",
+    "Total assets and deferred outflows of resources",
+    "LIABILITIES:",
+    "Accounts payable",
+    "Accrued liabilities",
+    "Accrued interest payable",
+    "Unearned revenue",
+    "Liabilities payable from restricted assets",
+    "Noncurrent liabilities:",
+    "Due within one year:",
+    "Bonds, loans, and contracts",
+    "Compensated absences",
+    "Leases payable",
+    "Subscription payable",
+    "Due in more than one year:",
+    "Bonds, loans, and contracts",
+    "Compensated absences",
+    "Leases payable",
+    "Subscription payable",
+    "Net pension liability",
+    "Total liabilities",
+    "DEFERRED INFLOWS OF RESOURCES",
+    "Total liabilities and deferred inflows of resources",
+    "NET POSITION (DEFICIT):",
+    "Net investment in capital assets",
+    "Restricted - expendable:",
+    "Capital projects",
+    "Debt service",
+    "Net OPEB asset",
+    "Permanent fund",
+    "Other purposes",
+    "Restricted - nonexpendable - Jensen-Olson Arboretum",
+    "Unrestricted",
+    "Total net position (deficit)"
+   ]
+  },
+  {
+   "pdf_filename": "ACFR114__SC_Coastal_Carolina_University_2025.pdf",
+   "statement_type": "PF_NET_POSITION",
+   "pdf_page": 34,
+   "captions": [
+    "ASSETS",
+    "CURRENT ASSETS",
+    "Cash and cash equivalents",
+    "Accounts receivable, net of provision for doubtful accounts",
+    "Due from component units",
+    "Inventories",
+    "Prepaid expenses",
+    "RESTRICTED CURRENT ASSETS",
+    "Cash and cash equivalents",
+    "Investments",
+    "Total Current Assets",
+    "NONCURRENT ASSETS",
+    "Capital assets, net of accumulated depreciation",
+    "Land",
+    "Construction in progress",
+    "Building and improvements",
+    "Equipment and vehicles",
+    "Leases",
+    "Subscriptions",
+    "Accounts receivable",
+    "RESTRICTED NONCURRENT ASSETS",
+    "Cash and cash equivalents",
+    "Investments",
+    "Loans to students, net",
+    "Total noncurrent assets",
+    "TOTAL ASSETS",
+    "DEFERRED OUTFLOWS OF RESOURCES",
+    "Deferred amount on debt refunding",
+    "Deferred outflows related to net pension liability",
+    "Deferred outflows related to net OPEB liability",
+    "TOTAL DEFERRED OUTFLOWS OF RESOURCES"
+   ]
+  }
+ ],
+ "corrections": [
+  {
+   "version": "0.4.0",
+   "pdf_filename": "ACFR111__OH_Lakewood_Local_School_District_2025.pdf",
+   "change": "GW_NET_POSITION 42->42-43, GW_ACTIVITIES 44->44-45, GF_OPERATING 48->48-49",
+   "reason": "Visually checked: TOC lists Statement of Net Position at printed page 16 and Statement of Activities at 18; PDF page 43 (printed 17) holds deferred inflows and net position; pages 45 and 49 are the untitled right halves of two-page spreads."
+  }
+ ]
+}

@@ -173,6 +173,57 @@ class NameRuleTests(unittest.TestCase):
         self.check('Helping Hands Inc.', 'exclude', f.NONPROFIT)
         self.check('ABC Water Supply Corporation', 'review', f.SD)
 
+    # Fixes from the live FAC fiscal-2025 sample (names as FAC lists them).
+    def test_nonprofit_category_is_a_label(self):
+        v = f.classify('Central Peninsula General Hospital Inc', 'AK', [])
+        self.assertEqual((v['action'], v['proposed_category']), ('exclude', 'Non-profit or Corporation'))
+
+    def test_corporation_named_after_a_parish_is_not_a_government(self):
+        self.check("CORPORATION OF ST. PATRICK'S PARISH", 'exclude', f.NONPROFIT, 'AK')
+        self.check('St. Tammany Parish', 'exclude', f.GP, 'LA')
+
+    def test_delaware_levy_court_is_a_county_government(self):
+        self.check('Kent County Levy Court', 'exclude', f.GP, 'DE')
+
+    def test_charter_schools_without_the_word_school(self):
+        self.check('Aspira of Delaware Charter', 'exclude', f.CHARTER, 'DE')
+        self.check('Avon Grove Charter', 'exclude', f.CHARTER, 'PA')
+        self.check('CHESTER CHARTER SCHOLARS ACADEMY', 'exclude', f.CHARTER, 'PA')
+        self.check('West Philadelphia Achievement Charter Elementary School', 'exclude', f.CHARTER, 'PA')
+        self.check('Charter Township of Canton', 'exclude', f.GP, 'MI')
+
+    def test_nj_boards_of_education_and_vocational_schools(self):
+        self.check('Red Bank BOE', 'exclude', f.SCHOOL, 'NJ')
+        self.check('Ocean County Vocational Technical', 'exclude', f.SCHOOL, 'NJ')
+
+    def test_school_name_settles_a_school_vs_district_listing_conflict(self):
+        listed = index('acfrs', [('NJ', 'Lyndhurst Board of Education', f.SCHOOL),
+                                 ('NJ', 'Lyndhurst Boe', f.SD), ('CA', 'Springfield', f.GP),
+                                 ('CA', 'Springfield', f.SD)])
+        v = f.classify('LYNDHURST BOARD OF EDUCATION', 'NJ', [listed])
+        self.assertEqual((v['action'], v['proposed_category']), ('exclude', f.SCHOOL))
+        self.assertEqual(f.classify('Springfield', 'CA', [listed])['action'], 'review')
+
+    def test_commonwealth_finance_agency(self):
+        self.check('COMMONWEALTH FINANCING AUTHORITY', 'exclude', f.STATE_AGENCY, 'PA')
+        listed = index('acfrs', [('PA', 'Commonwealth Financing Authority', f.SD)])
+        v = f.classify('COMMONWEALTH FINANCING AUTHORITY', 'PA', [listed])
+        self.assertEqual((v['action'], v['proposed_category']), ('review', f.STATE_AGENCY))
+        # local entities that start with "Commonwealth" but are not finance agencies are unaffected
+        self.check('Commonwealth Transit Authority', 'include', f.SD, 'VA')
+
+    def test_state_student_aid_agency(self):
+        self.check('Kentucky Higher Education Assistance Authority', 'exclude', f.STATE_AGENCY, 'KY')
+
+    def test_authority_named_after_its_city_is_not_a_city_department(self):
+        census = index('census', [('PA', 'HAZLETON CITY AUTHORITY WATER DEPARTMENT', f.SD)])
+        v = f.classify('HAZLETON CITY AUTHORITY WATER DEPARTMENT', 'PA', [census])
+        self.assertEqual((v['action'], v['proposed_category']), ('review', f.SD))
+        self.assertEqual(f.classify('HAZLETON CITY AUTHORITY WATER DEPARTMENT', 'PA', [])['action'], 'review')
+        # real city departments stay excluded
+        self.check('City of San Bernardino Municipal Water Department', 'exclude', f.DEPT, 'CA')
+        self.check('City of Springfield Water District Department', 'exclude', f.DEPT, 'MO')
+
     def test_special_district_names(self):
         self.check('Orange County Water District', 'include', f.SD, 'CA')
         self.check('Port of Seattle', 'include', f.SD, 'WA')

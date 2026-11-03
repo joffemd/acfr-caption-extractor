@@ -108,7 +108,7 @@ ABBREVIATIONS = {
     'wtr': 'water', 'swr': 'sewer', 'metro': 'metropolitan', 'pub': 'public',
     'ctr': 'center', 'hosp': 'hospital', 'imp': 'improvement', 'impr': 'improvement',
     'jt': 'joint', 'jnt': 'joint', 'cmty': 'community', 'comm': 'commission',
-    'corp': 'corporation', 'incorporated': 'inc', 'regl': 'regional', 'rgnl': 'regional',
+    'corp': 'corporation', 'incorporated': 'inc', 'boe': 'board of education', 'regl': 'regional', 'rgnl': 'regional',
 }
 FILLER = {'of', 'the', 'and', 'for', 'in'}
 LOCAL_GOV_WORDS = {'city', 'town', 'village', 'county', 'borough', 'township', 'parish'}
@@ -234,25 +234,26 @@ def _rx(pattern):
 HOUSING_AUTHORITY = _rx(r'\bhousing (?:\w+ ){0,3}(?:authority|commission)\b|\bpublic housing agency\b'
                         r'|\bhousing agency\b|\bhousing (?:and \w+ )?redevelopment\b')
 STATE_FINANCE = _rx(r'\b(?:finance|financing|bond bank|mortgage|treasurer|treasury|infrastructure bank'
-                    r'|student loan|lottery|housing development authority|housing and finance)\b')
+                    r'|student loan|higher education assistance|lottery|housing development authority|housing and finance)\b')
 DEPARTMENT = _rx(r'\b(?:department|enterprise fund|enterprise funds|fund|funds|division|office of'
                  r'|district attorney|sheriff|clerk of court|clerk of the circuit court'
                  r'|county attorney|public defender|county treasurer|county auditor)\b')
 COMPONENT_UNIT = _rx(r'\bcomponent unit\b')
-NONPROFIT = _rx(r'\b(?:inc|llc|foundation|nonprofit|non profit|corporation|association|ltd)\b')
-CHARTER_SCHOOL = _rx(r'\bcharter (?:school|schools|academy)\b')
+NONPROFIT_NAME = _rx(r'\b(?:inc|llc|foundation|nonprofit|non profit|corporation|association|ltd)\b')
+CHARTER_SCHOOL = _rx(r'\bcharter (?:school|schools|academy|scholars|elementary|middle|high)\b'
+                     r'|(?<!home rule )\bcharter$')
 HIGHER_EDUCATION = _rx(r'\b(?:college|university|community college)\b')
 SCHOOL_DISTRICT = _rx(
     r'\b(?:school district|school districts|schools|school system|school department|board of education'
     r'|isd|cisd|usd|cusd|csd|ufsd|unified school|school corporation|school unit|school administrative'
     r'|union school|union high school|union free school|school committee|community unit'
     r'|educational service|education service|boces|intermediate unit|regional school'
-    r'|school board|parish school|county school|city school|public school)\b')
+    r'|school board|parish school|county school|city school|public school|vocational technical)\b')
 GP_PREFIX = _rx(r'^(?:city and county|city and borough|town and county|unified government|'
                 r'consolidated government|metropolitan government|charter township|city|town|village|'
                 r'county|borough|township|parish|municipality|plantation) of (.+)$')
 GP_SUFFIX = _rx(r'^(.+?) (?:city|town|village|county|borough|township|charter township|parish|'
-                r'county fiscal court|fiscal court|parish police jury|police jury|county commission'
+                r'county fiscal court|fiscal court|levy court|parish police jury|police jury|county commission'
                 r'|board of county commissioners|county board of supervisors|county board of commissioners'
                 r'|county government|city government|town government|consolidated government'
                 r'|unified government|metropolitan government|municipality)$')
@@ -295,7 +296,7 @@ def name_flags(name):
         'housing_authority': bool(HOUSING_AUTHORITY.search(norm)),
         'department_or_fund': bool(DEPARTMENT.search(norm)),
         'component_unit': bool(COMPONENT_UNIT.search(norm)),
-        'nonprofit': bool(NONPROFIT.search(norm)),
+        'nonprofit': bool(NONPROFIT_NAME.search(norm)),
         'charter': bool(CHARTER_SCHOOL.search(norm)),
         'higher_ed': bool(HIGHER_EDUCATION.search(norm)),
         'school': bool(SCHOOL_DISTRICT.search(norm)),
@@ -310,20 +311,27 @@ def name_flags(name):
         flags['state_government'] = True
     # A state-level finance agency starts with a state name and has no local-government word
     # ("Iowa Finance Authority", but not "Washington County Housing Finance Authority").
-    if code and STATE_FINANCE.search(norm) and not toks & LOCAL_GOV_WORDS:
+    # PA, KY, MA and VA agencies often start with just "Commonwealth" ("Commonwealth Financing Authority").
+    if (code or norm.startswith('commonwealth ')) and STATE_FINANCE.search(norm) and not toks & LOCAL_GOV_WORDS:
         flags['state_finance'] = True
     m = GP_PREFIX.match(norm) or GP_SUFFIX.match(norm)
     if m:
         rest = m.group(1)
         if SERVICE_WORDS.search(rest) and not SD_STRONG.search(rest) and not re.search(r'\b(?:commission|board)\b', rest):
             flags['gp_service'] = True   # "City of X Water and Sewer System": a city enterprise
-        elif not (SD_STRONG.search(rest) or GP_BLOCK.search(rest) or SCHOOL_DISTRICT.search(rest)):
+        elif not (SD_STRONG.search(rest) or GP_BLOCK.search(rest) or SCHOOL_DISTRICT.search(rest)
+                  or NONPROFIT_NAME.search(norm)):   # "Corporation of St. Patrick's Parish"
             flags['gp'] = True
     if norm == 'district of columbia':
         flags['gp'] = True
     # A department, office or fund of a city/county/town (or "City of X Water System"): excluded
     # even when a reference list files it as a Special District.
-    flags['local_department'] = flags['gp_service'] or (flags['department_or_fund'] and bool(toks & LOCAL_GOV_WORDS))
+    # An authority or district named after its city ("Hazleton City Authority Water Department") is not
+    # a city department: it goes on to the reference lists and is reviewed if they call it a district.
+    own_body = (bool(re.search(r'\b(?:authority|district)\b', norm)) and not NOT_SD_DISTRICT.search(norm)
+                and not GP_PREFIX.match(norm))
+    flags['local_department'] = flags['gp_service'] or (flags['department_or_fund'] and bool(toks & LOCAL_GOV_WORDS)
+                                                        and not own_body)
     return flags
 
 
@@ -388,6 +396,10 @@ def classify(name, state, indexes):
         source, method, refs, cats = hits[0]
         how = f'{source} {method}'
         if len(cats) > 1:
+            if flags['school'] and SCHOOL in cats and not flags['sd_strong']:
+                # "Lyndhurst Board of Education" vs acfrs's misfiled "Lyndhurst Boe" (Special District)
+                return _verdict(SCHOOL, how, f'{source} lists this name under several categories: '
+                                f'{", ".join(sorted(cats))}; the name is a school district', ref_text)
             return _verdict(SD if SD in cats else sorted(cats)[0], how,
                             f'{source} lists this name under several categories: {", ".join(sorted(cats))}',
                             ref_text, certain=False)

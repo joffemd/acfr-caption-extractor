@@ -161,3 +161,6 @@ Fixes, each found on a real report:
   enterprise funds, general-purpose governments, school districts and state
   finance agencies are excluded; uncertain names go to review. Entities already
   in the acfrs downloader manifest are dropped. Nothing is downloaded.
+- `fac_download.py`: downloads the FAC single audit PDFs of the review CSV rows
+  marked `include` (or other actions) as `ST Entity 2025.pdf`, with a resumable
+  manifest. Standalone, standard library only.

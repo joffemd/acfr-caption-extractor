@@ -153,6 +153,16 @@ Fixes, each found on a real report:
 
 ## Unreleased
 
+- Extractor 0.6.2: caption standardization removes a leading 2-4 digit line code
+  (Texas school districts' data control codes such as "1110 Cash", "0011
+  Instruction", "11 Instruction"; Illinois line numbers such as "103 Support
+  Services"), so these captions count together with the uncoded ones. "911 ..."
+  and likely years are kept. `"strip_leading_codes": false` in
+  normalization.json turns it off. On the FY2025 run this merged about 6,400
+  caption rows (70,000 statement occurrences).
+- `acfr_extractor.py --output <folder> --reexport` rebuilds all exports from
+  `progress.sqlite` with the current rules without reading any PDFs.
+
 - `fac_special_districts.py`: lists Federal Audit Clearinghouse single audits of
   local governments with a fiscal year ending in 2025, classifies them against
   the acfrs.reason.org Special District / General Purpose / School District

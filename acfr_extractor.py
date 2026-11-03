@@ -24,7 +24,7 @@ import unicodedata
 import pymupdf
 from legacy_clean_amount import clean_amount
 
-VERSION = '0.6.1'
+VERSION = '0.6.2'
 TYPES = {
  'GW_NET_POSITION':'Government-wide Statement of Net Position',
  'GW_ACTIVITIES':'Government-wide Statement of Activities',
@@ -47,8 +47,26 @@ def normalized(s):
  s=unicodedata.normalize('NFKC',s).casefold().replace('&',' and ')
  return re.sub(r'\s+',' ',re.sub(r'[^\w\s]',' ',s)).strip()
 
+# A line code printed before a caption: Texas school districts' data control codes
+# ("1110 Cash and Cash Equivalents", "0011 Instruction", "11 Instruction") and
+# Illinois line numbers ("103 Support Services"), sometimes split ("111 0 Cash",
+# "21 60 Accrued Wages") or with a sub-account ("335 03 Liquor Tax Reversion").
+# It must be followed by a word of two or more letters, so "401(k) plan" stays.
+LEADING_CODE=re.compile(r'^(\d{2,4})(?: \d{1,3}){0,2} (?=[a-z]{2})')
+
+def strip_leading_code(s):
+ """Drop a leading line code from a normalized caption. Kept: "911 ..." and
+ likely years (1900-2039 except multiples of ten, which are also common codes:
+ "2010 Accounts Payable" is a code, "2019 Refunding Bonds" a year)."""
+ m=LEADING_CODE.match(s)
+ if not m:return s
+ n=m[1]
+ if n=='911' or (len(n)==4 and 1900<=int(n)<=2039 and int(n)%10):return s
+ return s[m.end():]
+
 def standardize(s, rules):
  s=normalized(s)
+ if rules.get('strip_leading_codes',True):s=strip_leading_code(s)
  return rules.get('aliases',{}).get(s,s)
 
 def caption_key(caption,section,parent,rules):
@@ -1062,13 +1080,30 @@ def run(args):
  db.close();return 1 if failures else 0
 
 
+def reexport(args):
+ """Exports from the stored extraction results only. Changes to caption
+ standardization (code or normalization.json) apply without reprocessing PDFs,
+ even when a code change means --resume would reprocess them."""
+ out=Path(args.output).resolve();dbpath=out/'progress.sqlite'
+ if not dbpath.is_file():raise ValueError(f'No progress.sqlite in {out}')
+ rules=json.loads(Path(args.rules).read_text(encoding='utf-8'))
+ db=sqlite3.connect(dbpath)
+ try:
+  n=db.execute('SELECT count(*) FROM results').fetchone()[0]
+  print(f'Re-exporting {n} stored PDF results from {dbpath} (no PDFs are read)...',flush=True)
+  export_results(db,out,rules);validate(out,args.gold,rules)
+ finally:db.close()
+ print(f'Wrote {out/"caption_frequencies.xlsx"}',flush=True)
+ return 0
+
 def main():
  parser=argparse.ArgumentParser(description=__doc__)
- parser.add_argument('--input',required=True,help='Recursive PDF directory')
+ parser.add_argument('--input',help='Recursive PDF directory (required unless --reexport)')
  parser.add_argument('--output',required=True,help='Results and resumable checkpoint directory')
  parser.add_argument('--workers',type=int,default=1)
  parser.add_argument('--ocr',choices=['off','auto','all'],default='off',help='auto OCRs suspect TOC-linked statement pages; all OCRs suspect pages throughout')
  parser.add_argument('--resume',action='store_true')
+ parser.add_argument('--reexport',action='store_true',help='Rebuild the CSVs and workbook from progress.sqlite in --output with the current rules; reads no PDFs')
  parser.add_argument('--metadata',help='JSON keyed by relative PDF path: government_name, fiscal_year, drive_file_id')
  parser.add_argument('--rules',default=str(CONFIG))
  parser.add_argument('--gold',help='Verified reference JSON for accuracy measurement')
@@ -1080,8 +1115,9 @@ def main():
  for stream in (sys.stdout,sys.stderr):
   if hasattr(stream,'reconfigure'):stream.reconfigure(errors='backslashreplace')
  if args.workers<1:parser.error('--workers must be positive')
+ if not args.input and not args.reexport:parser.error('--input is required (or use --reexport)')
  export_results.occurrences_format=args.occurrences
- try:return run(args)
+ try:return reexport(args) if args.reexport else run(args)
  except (ValueError,OSError,sqlite3.Error) as e:parser.exit(2,f'{type(e).__name__}: {e}\n')
 
 if __name__=='__main__':raise SystemExit(main())

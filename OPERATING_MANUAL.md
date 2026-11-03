@@ -171,3 +171,25 @@ See CHANGELOG.md and FULL_SAMPLE_VALIDATION.md. Operationally relevant:
 - Supply Drive file IDs with `--metadata` (keys are paths relative to `--input`);
   validation/full_sample/drive_metadata_48.json is the example used for the
   sample run.
+
+## Changes in 0.5.0
+
+See CHANGELOG.md and FULL_SAMPLE_VALIDATION.md. Operationally relevant:
+
+- Workers stay busy. A new PDF starts as soon as any finishes, with at most
+  workers×2 in flight, so a slow OCR-heavy report no longer stalls a batch.
+- New inventory warnings:
+  - `toc_page_mapping_ignored`: TOC page numbers pointed at a different
+    numbering sequence, so titled pages were used instead.
+  - `absence_inferred_from_statement_section`: no usable TOC; the
+    absence comes from a fully readable native-text statement section.
+  - `combined_statement`: one statement serves both a government-wide and a
+    governmental-fund type; its captions count under both.
+  - `shared_page`: two statements on one page, split at the second title.
+  - `title_from_toc`: an irregular title was replaced by the TOC's type.
+- `ocr_rotation` now also reports the extra rotation applied to native text when
+  a landscape page is stored with a /Rotate that leaves its text vertical.
+- Set `ACFR_DEBUG=1` to print each report's detected pages and TOC ranges.
+- Pages whose text layer is symbol soup, or whose statement is drawn as vector
+  outlines, are now OCR'd in `--ocr auto`. Heavily scanned reports can take
+  several minutes each.

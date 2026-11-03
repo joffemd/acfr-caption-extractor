@@ -44,9 +44,13 @@ Use the explicit Python executable above for all commands.
 - Results: open `caption_frequencies.xlsx` in Excel. Per-caption detail is in
   `caption_occurrences.sqlite`. Review `processing_log.csv` (failed and timed-out
   PDFs) and the `unknown` rows of `statement_inventory.csv`.
-- Without `--metadata`, government name and fiscal year are read from
-  filenames like `ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf`; otherwise
-  the file name is used as the government name and the fiscal year is blank.
+- Without `--metadata`, government name and fiscal year are read from file
+  names of the form `CA Alameda County 2025.pdf` (state, entity, fiscal year,
+  separated by spaces), giving government "Alameda County, CA" and fiscal year
+  2025. The sample naming `ACFR001__AK_Name_2025.pdf` is also recognized. Other
+  names are used as the government name, with a blank fiscal year. The state is
+  kept in the name so that same-named governments in different states (for
+  example Washington County) are counted separately.
 
 The program does not require access to the developer's computer. These are user-run
 installation examples. For a downloaded production universe, no Google services

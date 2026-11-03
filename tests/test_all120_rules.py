@@ -120,6 +120,17 @@ class Workbook(unittest.TestCase):
    self.assertGreater(sum(1 for _ in wb['Caption frequencies'].iter_rows()),1)
 
 
+class FileNames(unittest.TestCase):
+ def test_state_entity_year_names(self):
+  ident=lambda n:a.document_identity(Path(n),{})
+  got=ident('CA Alameda County 2025.pdf');self.assertEqual((got['government_name'],got['fiscal_year']),('Alameda County, CA','2025'))
+  self.assertEqual(ident('TX  Fort Worth Independent School District  2024.pdf')['government_name'],'Fort Worth Independent School District, TX')
+  self.assertEqual(ident('ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf')['government_name'],'City and Borough of Juneau, AK')
+  self.assertNotEqual(ident('WA Washington County 2025.pdf')['government_name'],ident('OR Washington County 2025.pdf')['government_name'])
+  self.assertEqual(ident('Some Report.pdf')['fiscal_year'],'')
+  self.assertEqual(a.document_identity(Path('CA Alameda County 2025.pdf'),{'government_name':'County of Alameda, CA'})['government_name'],'County of Alameda, CA')
+
+
 class Isolation(unittest.TestCase):
  def test_hung_report_is_stopped_and_others_finish(self):
   import csv,os,subprocess,tempfile

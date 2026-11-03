@@ -143,3 +143,10 @@ Fixes, each found on a real report:
   caption pages (191/191) are unchanged. Known side effect: on UNC Chapel Hill's
   side-by-side two-table cash flow page, some labels from the two tables merge.
 - Dependency added: openpyxl 3.1.5.
+
+## 0.6.1
+
+- File names of the form `CA Alameda County 2025.pdf` (state, entity, fiscal
+  year) give government "Alameda County, CA" and fiscal year 2025 without a
+  metadata file. Government names now always include the state, so same-named
+  governments in different states are counted separately.

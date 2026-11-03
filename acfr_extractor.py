@@ -23,7 +23,7 @@ import unicodedata
 import pymupdf
 from legacy_clean_amount import clean_amount
 
-VERSION = '0.6.0'
+VERSION = '0.6.1'
 TYPES = {
  'GW_NET_POSITION':'Government-wide Statement of Net Position',
  'GW_ACTIVITIES':'Government-wide Statement of Activities',
@@ -553,10 +553,21 @@ def sha256_file(path):
   for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
  return h.hexdigest()
 
+FILENAME_PATTERNS=[
+ # Production naming: "CA Alameda County 2025.pdf" (state, entity, fiscal year).
+ re.compile(r'^([A-Z]{2})\s+(.+?)\s+((?:19|20)\d\d)$'),
+ # Sample naming: "ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf".
+ re.compile(r'^ACFR\d+__([A-Z]{2})_(.+)_((?:19|20)\d\d)$'),
+]
+
 def document_identity(path,meta):
- name=path.stem
- m=re.match(r'ACFR\d+__([A-Z]{2})_(.+)_(20\d\d)$',name)
- return {'government_name':meta.get('government_name') or (m[2].replace('_',' ') if m else re.sub(r'[_-]',' ',name)), 'fiscal_year':meta.get('fiscal_year') or (m[3] if m else ''),'drive_file_id':meta.get('drive_file_id','')}
+ """Government name ("Entity, ST") and fiscal year from --metadata, else from
+ the file name. The state is kept in the name so same-named governments in
+ different states are counted separately."""
+ name=re.sub(r'\s+',' ',path.stem.strip())
+ m=next((m for m in (p.match(name) for p in FILENAME_PATTERNS) if m),None)
+ parsed=f"{m[2].replace('_',' ').strip()}, {m[1]}" if m else re.sub(r'[_-]',' ',name)
+ return {'government_name':meta.get('government_name') or parsed,'fiscal_year':meta.get('fiscal_year') or (m[3] if m else ''),'drive_file_id':meta.get('drive_file_id','')}
 
 def process_pdf(task):
  path,root,out,options,metadata=task;path=Path(path);root=Path(root);out=Path(out)

@@ -5,11 +5,12 @@ Coordinates are PDF points from top-left; PDF page numbers are one based.
 from __future__ import annotations
 import argparse
 from collections import Counter, defaultdict
-from concurrent.futures import FIRST_COMPLETED, ProcessPoolExecutor, wait
 import csv
 import hashlib
 import io
 import itertools
+import multiprocessing
+import multiprocessing.connection
 import json
 import os
 from pathlib import Path
@@ -22,7 +23,7 @@ import unicodedata
 import pymupdf
 from legacy_clean_amount import clean_amount
 
-VERSION = '0.5.0'
+VERSION = '0.6.0'
 TYPES = {
  'GW_NET_POSITION':'Government-wide Statement of Net Position',
  'GW_ACTIVITIES':'Government-wide Statement of Activities',
@@ -468,9 +469,21 @@ def extract_rows(rows,width,height,dashes=False):
  candidates=[]
  for r in rows:
   if r['y0']<height*.10 or r['y0']>height*.94:continue
-  ws=r['words'];nums=[w for w in ws if amount(w[4]) and w[0]>=column-18]
-  end=min((w[0] for w in nums),default=column-4)
-  left=[w for w in ws if w[0]<end-2 and not (amount(w[4]) and w[0]>column-30)]
+  ws=r['words']
+  # Numbers inside a label ("Transfers—Note 5 ....", "June 30, 2024, as
+  # previously reported") sit left of the label's last word or dot leader;
+  # only numbers after that point and before the first real amount are amounts.
+  big=[w[0] for w in ws if re.search(r'\d,\d{3}|\(\d|\$|\d{5}',w[4])]
+  first_big=min(big,default=float('inf'))
+  # Without a real amount on the row, words right of the amount column are
+  # column headings, not label text.
+  limit=first_big if first_big<float('inf') else column-18
+  # Dot leaders run from a label toward its amounts; underline rules belong to
+  # amount columns and do not extend a label.
+  label_end=max((w[0] for w in ws if w[0]<limit and (re.search('[A-Za-z]',w[4]) or re.fullmatch(r'[.·…]{3,}',w[4]))),default=-1)
+  nums=[w for w in ws if amount(w[4]) and w[0]>=column-18 and w[0]>label_end]
+  end=min((w[0] for w in nums),default=max(column-4,label_end+1))
+  left=[w for w in ws if w[0]<end-2 and (w[0]<=label_end or not (amount(w[4]) and w[0]>column-30))]
   # Dotted leaders and underline rules are layout furniture, not caption text.
   text=re.sub(r'\s+',' ',re.sub(r'(?:[.·…]\s*){3,}|_{3,}',' ',' '.join(w[4] for w in left))).strip().strip('$ ')
   # Leftover leader dots (". .") and a nil-amount em dash left of the column.
@@ -849,7 +862,9 @@ def export_results(db,out,rules):
   for row in records('occurrences'):
    db.execute('INSERT INTO captions VALUES (?,?,?,?,?,?,?,?,?,?)',tuple(row[k] for k in ['statement_type','frequency_key','standardized_caption','statement_id','document_id','government_name','original_caption','section','parent_heading','row_kind']))
    yield row
- write_csv(out/'caption_occurrences.csv',OCC_FIELDS,occurrences())
+ fmt=getattr(export_results,'occurrences_format','csv')
+ if fmt in ('csv','both'):write_csv(out/'caption_occurrences.csv',OCC_FIELDS,occurrences())
+ if fmt in ('sqlite','both'):write_occurrence_db(out/'caption_occurrences.sqlite',occurrences() if fmt=='sqlite' else records('occurrences'))
  def inventory():
   for r in records('inventory'):
    db.execute('INSERT INTO statements VALUES (?,?,?)',(r['statement_type'],r['statement_id'],r['status']));yield r
@@ -863,7 +878,57 @@ def export_results(db,out,rules):
  fields=['original_caption','standardized_caption','frequency_key','section','parent_heading','row_kind']
  mapping=(dict(zip(fields,r)) for r in db.execute('SELECT DISTINCT original_caption,standardized_caption,frequency_key,section,parent_heading,row_kind FROM captions ORDER BY standardized_caption,original_caption'))
  write_csv(out/'caption_mapping.csv',fields,mapping)
+ summary=db.execute("SELECT statement_type,sum(status='present'),sum(status='absent'),sum(status='unknown') FROM statements GROUP BY statement_type").fetchall()
+ write_workbook(out/'caption_frequencies.xlsx',freq,summary)
  db.commit()
+
+def write_occurrence_db(path,rows):
+ """All caption occurrences in one SQLite table, for queries at a scale where
+ a CSV is unwieldy (about 8 million rows for 25,000 reports)."""
+ path=Path(path);tmp=path.with_suffix('.sqlite.tmp')
+ if tmp.exists():tmp.unlink()
+ con=sqlite3.connect(tmp);cols=', '.join(OCC_FIELDS)
+ con.execute(f'CREATE TABLE occurrences ({cols})')
+ con.executemany(f"INSERT INTO occurrences VALUES ({','.join('?'*len(OCC_FIELDS))})",(tuple(r.get(k,'') for k in OCC_FIELDS) for r in rows))
+ con.execute('CREATE INDEX occurrences_caption ON occurrences(statement_type, frequency_key)')
+ con.commit();con.close();os.replace(tmp,path)
+
+XLSX_MAX_ROWS=1_048_575
+
+def write_workbook(path,freq,summary):
+ """Excel summary: unique captions, statement names and counts only. Caption
+ occurrence detail stays in caption_occurrences.csv / .sqlite."""
+ from openpyxl import Workbook
+ from openpyxl.styles import Font
+ wb=Workbook(write_only=True)
+ headers=['Statement type','Financial statement','Standardized caption','Context key','Row kind','Statements containing caption','ACFRs containing caption','Governments containing caption','Statements extracted (denominator)','Percent of statements']
+ def sheet(title,head,widths):
+  ws=wb.create_sheet(title);ws.freeze_panes='A2'
+  for i,w in enumerate(widths):ws.column_dimensions[chr(65+i)].width=w
+  bold=[];
+  from openpyxl.cell import WriteOnlyCell
+  for h in head:c=WriteOnlyCell(ws,value=h);c.font=Font(bold=True);bold.append(c)
+  ws.append(bold);return ws
+ widths=[18,48,48,48,10,14,14,14,16,12]
+ part=1;ws=sheet('Caption frequencies',headers,widths);n=0
+ for r in freq:
+  if n==XLSX_MAX_ROWS:
+   part+=1;ws=sheet(f'Caption frequencies ({part})',headers,widths);n=0
+  ws.append([r['statement_type'],TYPES[r['statement_type']],r['standardized_caption'],r['frequency_key'],r['row_kind'],r['statement_count'],r['acfr_count'],r['government_count'],r['successful_statement_denominator'],r['frequency_percent']])
+  n+=1
+ ws=sheet('Statements',['Statement type','Financial statement','Present','Absent','Unresolved'],[18,60,10,10,12])
+ by={t:(p,a,u) for t,p,a,u in summary}
+ for t,name in TYPES.items():
+  p,a,u=by.get(t,(0,0,0));ws.append([t,name,p or 0,a or 0,u or 0])
+ ws=wb.create_sheet('About')
+ for line in [f'ACFR caption extractor {VERSION}',
+  'Caption frequencies: one row per standardized caption (and context key for ambiguous captions) per statement type.',
+  'Statements containing caption counts each statement once even if the caption repeats in it.',
+  'Percent of statements = statements containing caption / statements of that type extracted (present). Absent and unresolved statements are excluded from the denominator.',
+  'Row kind "heading" rows are section headings without amounts; "caption" rows carry amounts.',
+  'Caption occurrence detail (page, location, original wording) is in caption_occurrences.csv or caption_occurrences.sqlite, not in this workbook.',
+  'Edit normalization.json to approve additional equivalences, then rerun with --resume to re-export without reprocessing PDFs.']:ws.append([line])
+ tmp=Path(str(path)+'.tmp');wb.save(tmp);os.replace(tmp,path)
 
 
 def validate(out,gold,rules):
@@ -893,6 +958,56 @@ def validate(out,gold,rules):
  return metrics
 
 
+def failed_result(task,message):
+ """A processing-log/inventory record for a report that timed out or crashed."""
+ path,root,out,options,metadata=task;path=Path(path)
+ relative=path.relative_to(Path(root)).as_posix()
+ identity=document_identity(path,metadata.get(relative,metadata.get(path.name,{})))
+ base={'document_id':sha256_file(path),'source_path':relative,'pdf_filename':path.name,**identity}
+ log={**base,'status':'failed','page_count':'','captions':0,'statements_extracted':0,'ocr_pages':'','seconds':'','message':message}
+ inventory=[{**base,'statement_id':f"{base['document_id']}:{typ}",'statement_type':typ,'statement_name':name,'status':'unknown','extraction_status':'failed','pdf_start_page':'','pdf_end_page':'','pdf_pages':'','toc_start_pages':'','warning':'document_processing_failed'} for typ,name in TYPES.items()]
+ return {'base':base,'occurrences':[],'inventory':inventory,'logs':[log]}
+
+def _isolated_worker(task,conn):
+ # Test hook: ACFR_TEST_HANG=<filename> makes that PDF hang (time limit test).
+ if os.environ.get('ACFR_TEST_HANG') and Path(task[0]).name==os.environ['ACFR_TEST_HANG']:time.sleep(3600)
+ try:conn.send(process_pdf(task))
+ except BaseException as e:conn.send({'error':f'{type(e).__name__}: {e}'})
+ finally:conn.close()
+
+def run_isolated(tasks,workers,timeout,save):
+ """Run each report in its own process so a hung or crashing PDF can be
+ stopped without losing the run. A report exceeding `timeout` seconds is
+ killed and logged as failed; --resume retries failed reports."""
+ queue=iter(tasks);running={}
+ def launch():
+  task=next(queue,None)
+  if task is None:return False
+  recv,send=multiprocessing.Pipe(duplex=False)
+  proc=multiprocessing.Process(target=_isolated_worker,args=(task,send),daemon=True);proc.start();send.close()
+  running[recv]=(proc,task,time.monotonic());return True
+ try:
+  while len(running)<workers and launch():pass
+  while running:
+   ready=multiprocessing.connection.wait(list(running),timeout=1.0)
+   now=time.monotonic()
+   for conn in list(running):
+    proc,task,started=running[conn];result=None
+    if conn in ready:
+     try:result=conn.recv()
+     except EOFError:result={'error':f'worker exited with code {proc.exitcode} (crash or out of memory)'}
+    elif timeout>0 and now-started>timeout:
+     proc.kill();result={'error':f'timed out after {timeout} seconds; worker stopped'}
+    elif not proc.is_alive() and not conn.poll():
+     result={'error':f'worker exited with code {proc.exitcode} (crash or out of memory)'}
+    if result is None:continue
+    del running[conn];conn.close();proc.join(5)
+    if 'error' in result:result=failed_result(task,result['error'])
+    save(result)
+    launch()
+ finally:
+  for conn,(proc,_,_) in running.items():proc.kill()
+
 def run(args):
  root=Path(args.input).resolve();out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=True)
  if not root.is_dir():raise ValueError('Input must be a directory containing PDFs')
@@ -908,7 +1023,9 @@ def run(args):
   old=db.execute('SELECT fingerprint,config_id,payload FROM results WHERE source_path=?',(rel,)).fetchone()
   if args.resume and old and old[:2]==(fingerprint,config_id) and json.loads(old[2])['logs'][0]['status']!='failed':
    print(f'RESUME {rel}',flush=True);continue
-  tasks.append((str(p),str(root),str(out),options,metadata))
+  # Send each worker only its own metadata entry, not the whole mapping.
+  entry={k:metadata[k] for k in (rel,p.name) if k in metadata}
+  tasks.append((str(p),str(root),str(out),options,entry))
  # Scope checkpoint to this input tree and current file membership.
  for rel, in db.execute('SELECT source_path FROM results').fetchall():
   if rel not in seen:db.execute('DELETE FROM results WHERE source_path=?',(rel,))
@@ -918,21 +1035,10 @@ def run(args):
   db.execute('INSERT OR REPLACE INTO results VALUES (?,?,?,?)',(rel,result['base']['document_id'],config_id,json.dumps(result)));db.commit()
   print(f"{result['logs'][0]['status'].upper()} {rel}: {len(result['occurrences'])} rows",flush=True)
  try:
-  if args.workers==1:
+  if args.timeout<=0 and args.workers==1:
    for task in tasks:save(process_pdf(task))
   else:
-   # Reports stay in workers; only small result structures return. At most
-   # workers*2 tasks are in flight, and a new one is submitted as soon as any
-   # finishes, so one slow OCR-heavy report never leaves the other workers idle.
-   with ProcessPoolExecutor(max_workers=args.workers) as pool:
-    pending=set();queue=iter(tasks)
-    for task in itertools.islice(queue,args.workers*2):pending.add(pool.submit(process_pdf,task))
-    while pending:
-     done,pending=wait(pending,return_when=FIRST_COMPLETED)
-     for future in done:
-      save(future.result())
-      nxt=next(queue,None)
-      if nxt is not None:pending.add(pool.submit(process_pdf,nxt))
+   run_isolated(tasks,args.workers,args.timeout,save)
  finally:
   export_results(db,out,rules);validate(out,args.gold,rules)
  failures=sum(json.loads(p[0])['logs'][0]['status']=='failed' for p in db.execute('SELECT payload FROM results'))
@@ -949,8 +1055,11 @@ def main():
  parser.add_argument('--metadata',help='JSON keyed by relative PDF path: government_name, fiscal_year, drive_file_id')
  parser.add_argument('--rules',default=str(CONFIG))
  parser.add_argument('--gold',help='Verified reference JSON for accuracy measurement')
+ parser.add_argument('--occurrences',choices=['csv','sqlite','both'],default='csv',help='Format for per-caption detail: csv (caption_occurrences.csv), sqlite (caption_occurrences.sqlite, recommended for large runs) or both')
+ parser.add_argument('--timeout',type=int,default=1800,help='Seconds allowed per PDF before its worker is stopped and the PDF is logged as failed (0 = no limit)')
  args=parser.parse_args()
  if args.workers<1:parser.error('--workers must be positive')
+ export_results.occurrences_format=args.occurrences
  try:return run(args)
  except (ValueError,OSError,sqlite3.Error) as e:parser.exit(2,f'{type(e).__name__}: {e}\n')
 

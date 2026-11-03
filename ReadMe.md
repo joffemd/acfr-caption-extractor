@@ -1,4 +1,4 @@
-# ACFR Caption Extractor 0.5.0
+# ACFR Caption Extractor 0.6.0
 
 An offline, deterministic Python 3.12 development release for financial-statement
 caption research. No LLM, paid processing API, Google account, or network connection
@@ -65,6 +65,14 @@ AGPL/commercial licensing; use must comply with the selected license. Tesseract
 uses Apache 2.0. The uploaded legacy archive did not include a license file; this
 package does not invent distribution rights for its reused component. Reuse is
 for the user's supplied project; resolve rights before broader redistribution.
+
+## 0.6.0: large-run readiness
+
+Adds a per-report time limit with process isolation (`--timeout`), the Excel
+summary workbook `caption_frequencies.xlsx` (unique captions, statements and
+counts only), `--occurrences sqlite` for per-caption detail at scale, and keeps
+note numbers, dates and hyphens inside captions. See CHANGELOG.md and the
+large-run section of WINDOWS_INSTALL.md.
 
 ## Drive sample validation (0.5.0, all 120 reports)
 

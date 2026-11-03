@@ -27,6 +27,27 @@ Use the explicit Python executable above for all commands.
 .\.venv\Scripts\python.exe acfr_extractor.py --input "C:\ACFR-working\pdfs" --output "C:\ACFR-working\results" --workers 2 --ocr auto --resume
 ```
 
+## Large runs (for example 25,000 reports on a 12-core, 64 GB PC)
+
+```powershell
+.\.venv\Scripts\python.exe acfr_extractor.py --input "D:\ACFR\pdfs" --output "D:\ACFR\results" --workers 10 --ocr auto --occurrences sqlite --timeout 1800 --metadata "D:\ACFR\metadata.json" --resume
+```
+
+- `--workers 10` leaves two cores for Windows and Tesseract. Peak memory was
+  under 0.6 GB per worker on the sample, so 64 GB is ample.
+- Estimated time: the 120-report sample used about 20 CPU-seconds per report,
+  so about 14 hours for 25,000 reports with 10 workers. Scanned reports
+  dominate. Measure on a pilot of about 1,000 reports first.
+- Put input and output on a local SSD, not a cloud-synced folder. Keep the
+  machine from sleeping. If the run stops for any reason, rerun the same
+  command; `--resume` skips finished reports.
+- Results: open `caption_frequencies.xlsx` in Excel. Per-caption detail is in
+  `caption_occurrences.sqlite`. Review `processing_log.csv` (failed and timed-out
+  PDFs) and the `unknown` rows of `statement_inventory.csv`.
+- Without `--metadata`, government name and fiscal year are read from
+  filenames like `ACFR001__AK_City_and_Borough_of_Juneau_2025.pdf`; otherwise
+  the file name is used as the government name and the fiscal year is blank.
+
 The program does not require access to the developer's computer. These are user-run
 installation examples. For a downloaded production universe, no Google services
 are required. For this project, keep authoritative inputs and permanent results in

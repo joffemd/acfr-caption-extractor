@@ -1,5 +1,6 @@
 {
   "aliases": {"cash & cash equivalents": "cash and cash equivalents"},
   "ambiguous_captions": ["accounts", "other", "restricted", "unrestricted", "current", "noncurrent", "taxes", "investments", "capital assets"],
-  "description": "Unicode NFKC, lowercase, punctuation-to-space, whitespace collapse, then exact aliases. No stemming, no digit deletion, no accounting synonym merging. Ambiguous labels include section/parent context in frequency keys."
+  "description": "Unicode NFKC, lowercase, punctuation-to-space, whitespace collapse, removal of a leading 2-4 digit line code (Texas data control codes such as '1110', Illinois line numbers; '911' and likely years are kept; set strip_leading_codes to false to turn this off), then exact aliases. No stemming, no other digit deletion, no accounting synonym merging. Ambiguous labels include section/parent context in frequency keys.",
+  "strip_leading_codes": true
 }

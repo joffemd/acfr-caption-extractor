@@ -73,9 +73,16 @@ numeric extraction. Complete numeric extraction is outside this release.
 ## Normalization and identities
 
 Edit normalization.json aliases to approve exact equivalences. Rules perform NFKC,
-lowercase, punctuation-to-spaces and whitespace collapse; they do not stem or
-remove digits. Context is included for listed ambiguous labels. Normalization
-changes re-export on --resume without reprocessing PDFs. Grouping governments uses
+lowercase, punctuation-to-spaces and whitespace collapse, and remove a leading 2-4
+digit line code: Texas school districts' data control codes ("1110 Cash and Cash
+Equivalents", "0011 Instruction", "11 Instruction") and Illinois line numbers ("103
+Support Services"). "911 ..." and likely years ("2019 Refunding Bonds") are kept;
+set "strip_leading_codes": false in normalization.json to turn this off. Rules do
+not stem or remove other digits. Context is included for listed ambiguous labels.
+Normalization changes re-export on --resume without reprocessing PDFs. After an
+extractor code change, --resume would reprocess every PDF; instead run
+`acfr_extractor.py --output <results folder> --reexport`, which rebuilds the CSVs
+and workbook from progress.sqlite without reading any PDFs. Grouping governments uses
 case-insensitive supplied names, not an authoritative entity registry; provide
 consistent names in --metadata to avoid merging/splitting governments incorrectly.
 Same-content PDF duplicates share the SHA-256 statement identity and do not inflate

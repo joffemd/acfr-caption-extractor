@@ -38,6 +38,19 @@ class RulesTests(unittest.TestCase):
  def test_normalization_conservative(self):
   self.assertEqual(a.standardize('  Cash, AND  Cash Equivalents! ',RULES),'cash and cash equivalents')
   self.assertNotEqual(a.standardize('Due within 1 year',RULES),a.standardize('Due within 2 years',RULES))
+ def test_leading_line_codes_removed(self):
+  # Texas data control codes and Illinois line numbers, as printed in real FY2025 reports.
+  for raw,expected in [('1110 Cash and Cash Equivalents','cash and cash equivalents'),('2110 Accounts Payable','accounts payable'),
+                       ('0011 Instruction','instruction'),('11 Instruction','instruction'),('3000 Net Position, Ending','net position ending'),
+                       ('2010 Accounts Payable','accounts payable'),('1910 Long-Term Investments','long term investments'),
+                       ('103 Support Services','support services'),('111 0 Cash and cash equivalents','cash and cash equivalents'),
+                       ('21 60 Accrued Wages Payable','accrued wages payable'),('335 03 Liquor Tax Reversion','liquor tax reversion')]:
+   with self.subTest(raw=raw):self.assertEqual(a.standardize(raw,RULES),expected)
+  for raw,expected in [('911 Surcharge','911 surcharge'),('401(k) Plan Contributions','401 k plan contributions'),
+                       ('2019 Refunding Bonds','2019 refunding bonds'),('2026 Budget','2026 budget'),('1 Pension trust fund','1 pension trust fund'),
+                       ('Series 2019 Bonds','series 2019 bonds'),('12 31 2024 Balance','12 31 2024 balance'),('Cash','cash')]:
+   with self.subTest(raw=raw):self.assertEqual(a.standardize(raw,RULES),expected)
+  self.assertEqual(a.standardize('1110 Cash',{**RULES,'strip_leading_codes':False}),'1110 cash')
  def test_context_keys(self):
   self.assertNotEqual(a.caption_key('Other','Assets','Current',RULES),a.caption_key('Other','Liabilities','Current',RULES))
  def test_numeric_filter(self):
@@ -114,6 +127,15 @@ class PipelineTests(unittest.TestCase):
   rules=self.root/'rules.json';rr=dict(RULES);rr['aliases']={'cash and cash equivalents':'cash equivalents'};rules.write_text(json.dumps(rr),encoding='utf-8')
   r=self.invoke('--resume','--rules',str(rules));self.assertIn('RESUME',r.stdout)
   self.assertIn('cash equivalents',[x['standardized_caption'] for x in self.read('caption_occurrences.csv')])
+  # --reexport rebuilds the exports from progress.sqlite alone: no --input, no PDFs read.
+  rr['aliases']={'cash and cash equivalents':'cash and equivalents'};rules.write_text(json.dumps(rr),encoding='utf-8')
+  pdf.unlink()
+  r=subprocess.run([sys.executable,str(Path(a.__file__)),'--output',str(self.output),'--reexport','--rules',str(rules)],capture_output=True,text=True)
+  self.assertEqual(r.returncode,0,r.stderr);self.assertIn('Re-exporting 1 stored PDF results',r.stdout)
+  self.assertIn('cash and equivalents',[x['standardized_caption'] for x in self.read('caption_occurrences.csv')])
+  self.assertTrue((self.output/'caption_frequencies.xlsx').exists())
+  r=subprocess.run([sys.executable,str(Path(a.__file__)),'--output',str(self.output)],capture_output=True,text=True)
+  self.assertEqual(r.returncode,2);self.assertIn('--input is required',r.stderr)
  def test_malformed_and_password_pdf(self):
   (self.inputs/'bad.pdf').write_bytes(b'not a PDF')
   d=pymupdf.open();d.new_page();d.save(self.inputs/'locked.pdf',encryption=pymupdf.PDF_ENCRYPT_AES_256,owner_pw='owner',user_pw='password');d.close()

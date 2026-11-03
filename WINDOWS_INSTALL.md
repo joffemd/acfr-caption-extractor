@@ -144,6 +144,25 @@ What it does:
    audit_year, fac_accepted_date, reference_match (the reference entries that
    matched), reports_for_uei and fac_summary_url. `fac_log.txt` has the counts.
 
+### Downloading the included audits
+
+`fac_download.py` downloads the PDFs of the rows marked `include` in the review
+CSV (edit the CSV first to change any row's action). It needs no API key or
+login, uses only the standard library and imports nothing else from this
+repository, so it can be copied to and run from any folder:
+
+```bat
+python fac_download.py "D:\ACFR\fac_2025\fac_fy2025_special_district_review.csv" --output "D:\ACFR\fac_pdfs_2025"
+```
+
+- Files are named `ST Entity 2025.pdf`, the form `acfr_extractor.py` reads. Names
+  that would collide get the report ID added.
+- `manifest.csv` and `download_log.txt` in the output folder record every
+  report. Rerun the same command to resume and retry failures.
+- `--list-only` writes the manifest without downloading; `--limit 20` downloads a
+  test batch; `--action include,review` also takes review rows; `--states` limits
+  by state; `--workers` (1-8, default 4) sets parallel downloads.
+
 ## Large runs (for example 25,000 reports on a 12-core, 64 GB PC)
 
 ```powershell

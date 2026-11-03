@@ -193,3 +193,21 @@ See CHANGELOG.md and FULL_SAMPLE_VALIDATION.md. Operationally relevant:
 - Pages whose text layer is symbol soup, or whose statement is drawn as vector
   outlines, are now OCR'd in `--ocr auto`. Heavily scanned reports can take
   several minutes each.
+
+## Changes in 0.6.0
+
+- `--timeout SECONDS` (default 1800): each PDF runs in its own process and is
+  stopped if it exceeds the limit; it is logged as failed ("timed out ... worker
+  stopped") and the run continues. A crash or out-of-memory exit of one PDF is
+  logged the same way. Rerun with `--resume` to retry failed PDFs, optionally
+  with a larger `--timeout`. A Tesseract subprocess started by a stopped worker
+  may finish its own page timeout (up to 6 minutes) before exiting.
+- `caption_frequencies.xlsx` is the summary for Excel. It contains only unique
+  standardized captions with their statement type and name, context key, row
+  kind, the number of statements, ACFRs and governments containing each caption,
+  the denominator and the percentage, plus statement status counts. It is
+  regenerated on every export, including `--resume` after editing
+  `normalization.json`.
+- `--occurrences sqlite` writes per-caption detail to `caption_occurrences.sqlite`
+  (table `occurrences`, same columns as the CSV). Use it for large runs; query it
+  with DB Browser for SQLite, Python, or Power Query's ODBC connector.

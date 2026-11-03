@@ -120,3 +120,26 @@ Fixes, each found on a real report:
 - Workers are kept busy: a new report starts as soon as any finishes instead of
   waiting for a batch (full 120-report cold run: 31 -> 17 minutes).
 - Optional `ACFR_DEBUG=1` prints detected pages and TOC windows per report.
+
+## 0.6.0 — readiness for a 25,000-report local run
+
+- **Per-report time limit and isolation.** Each PDF runs in its own process. A
+  PDF exceeding `--timeout` seconds (default 1800; 0 disables) is stopped and
+  logged as failed with "timed out", and the run continues. A worker crash or
+  out-of-memory exit is logged the same way. `--resume` retries failed PDFs.
+  Workers receive only their own metadata entry instead of the whole mapping.
+- **Excel summary workbook** `caption_frequencies.xlsx`. It holds only unique
+  captions, statement names and counts (sheet "Caption frequencies", continued
+  on further sheets past Excel's row limit), a "Statements" sheet with
+  present/absent/unresolved counts per statement type, and an "About" sheet.
+  Caption occurrence detail is not in the workbook.
+- **`--occurrences csv|sqlite|both`** (default csv). `sqlite` writes
+  `caption_occurrences.sqlite` instead of a multi-gigabyte CSV.
+- **Captions kept whole.** Numbers and hyphens inside a label are no longer read
+  as amounts: "Transfers—Note 5", "Net Position June 30, 2024, as restated" and
+  "Sales and use taxes - Restricted for public safety" were previously cut at the
+  number or the " - ". On the 120 sample reports 77 truncated caption rows became
+  80 complete ones. Statement inventory, reference checks (198/198) and reference
+  caption pages (191/191) are unchanged. Known side effect: on UNC Chapel Hill's
+  side-by-side two-table cash flow page, some labels from the two tables merge.
+- Dependency added: openpyxl 3.1.5.

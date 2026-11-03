@@ -82,4 +82,58 @@ class Rotation(unittest.TestCase):
   d.close()
 
 
+class CaptionNumbers(unittest.TestCase):
+ def rows(self,spec):
+  words=[]
+  for y,tokens in spec:
+   for x,t in tokens:words.append((x,y,x+5*len(t),y+9,t))
+  return a.group_words(words)
+ def test_note_numbers_dates_and_hyphens_stay_in_captions(self):
+  rows=self.rows([(150,[(60,'Revenues')]),
+   (170,[(60,'Transfers—Note'),(110,'5'),(118,'............'),(400,'(807,773)'),(470,'807,773')]),
+   (190,[(60,'Net'),(75,'Position'),(110,'June'),(130,'30,'),(145,'2024,'),(170,'as'),(185,'restated'),(400,'33,345,694'),(470,'1,260,702')]),
+   (210,[(60,'Sales'),(85,'taxes'),(110,'-'),(120,'Restricted'),(400,'1,234'),(470,'5,678')]),
+   (230,[(60,'Interest'),(100,'received'),(250,'____________'),(300,'583'),(340,'____'),(400,'2,030'),(470,'114')])])
+  got=[x['text'] for x in a.extract_rows(rows,612,792)]
+  self.assertIn('Transfers—Note 5',got)
+  self.assertIn('Net Position June 30, 2024, as restated',got)
+  self.assertIn('Sales taxes - Restricted',got)
+  self.assertIn('Interest received',got)
+
+
+class Workbook(unittest.TestCase):
+ def test_workbook_holds_only_frequencies(self):
+  import subprocess,tempfile
+  from openpyxl import load_workbook
+  sys.path.insert(0,str(Path(__file__).resolve().parent))
+  from test_extractor import make_report
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);(root/'in').mkdir();make_report(root/'in'/'district.pdf')
+   r=subprocess.run([sys.executable,str(Path(a.__file__)),'--input',str(root/'in'),'--output',str(root/'out'),'--occurrences','sqlite'],capture_output=True,text=True)
+   self.assertEqual(r.returncode,0,r.stderr)
+   self.assertFalse((root/'out'/'caption_occurrences.csv').exists())
+   self.assertTrue((root/'out'/'caption_occurrences.sqlite').exists())
+   wb=load_workbook(root/'out'/'caption_frequencies.xlsx',read_only=True)
+   self.assertEqual(wb.sheetnames,['Caption frequencies','Statements','About'])
+   head=next(wb['Caption frequencies'].iter_rows(values_only=True))
+   self.assertIn('Standardized caption',head);self.assertNotIn('pdf_page',head);self.assertNotIn('Original caption',head)
+   self.assertGreater(sum(1 for _ in wb['Caption frequencies'].iter_rows()),1)
+
+
+class Isolation(unittest.TestCase):
+ def test_hung_report_is_stopped_and_others_finish(self):
+  import csv,os,subprocess,tempfile
+  sys.path.insert(0,str(Path(__file__).resolve().parent))
+  from test_extractor import make_report
+  with tempfile.TemporaryDirectory() as tmp:
+   root=Path(tmp);inputs=root/'in';inputs.mkdir()
+   make_report(inputs/'good.pdf');make_report(inputs/'hang.pdf')
+   env={**os.environ,'ACFR_TEST_HANG':'hang.pdf'}
+   r=subprocess.run([sys.executable,str(Path(a.__file__)),'--input',str(inputs),'--output',str(root/'out'),'--workers','2','--timeout','3'],capture_output=True,text=True,env=env,timeout=120)
+   self.assertEqual(r.returncode,1,r.stderr)
+   with (root/'out'/'processing_log.csv').open(encoding='utf-8-sig') as f:log={x['pdf_filename']:x for x in csv.DictReader(f)}
+   self.assertEqual(log['hang.pdf']['status'],'failed');self.assertIn('timed out',log['hang.pdf']['message'])
+   self.assertNotEqual(log['good.pdf']['status'],'failed')
+
+
 if __name__=='__main__':unittest.main()

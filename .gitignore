@@ -5,3 +5,5 @@ venv/
 ocr_cache/
 progress.sqlite*
 *.tmp
+*.part
+acfrs_2025/

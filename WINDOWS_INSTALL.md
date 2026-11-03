@@ -74,6 +74,76 @@ $env:ACFRS_PASSWORD = [System.Net.NetworkCredential]::new("", (Read-Host "acfrs.
 - Then point the extractor at the same folder:
   `--input "D:\ACFR\pdfs"`. The manifest and log are not PDFs and are ignored.
 
+## Finding fiscal-year 2025 special district audits on the Federal Audit Clearinghouse
+
+`fac_special_districts.py` lists the single audit reports on the Federal Audit
+Clearinghouse (FAC) for local governments whose fiscal year ended in 2025, sorts
+out the special districts, and writes a review CSV. **It downloads nothing.**
+Review the CSV first.
+
+In an Anaconda Prompt (Python 3.14 shown; 3.12 and 3.13 also work):
+
+```bat
+conda create -n acfr python=3.14
+conda activate acfr
+cd /d C:\ACFR\acfr-caption-extractor
+python -m pip install -r requirements.txt
+set "FAC_API_KEY=your api.data.gov key"
+set "ACFRS_USERNAME=your acfrs.reason.org username"
+set "ACFRS_PASSWORD=your acfrs.reason.org password"
+python fac_special_districts.py --output "D:\ACFR\fac_2025" --manifest "D:\ACFR\pdfs\manifest.csv" --census download
+```
+
+- Keep the quotes in the `set` lines: they let a password contain `&`, `^` or
+  `|`. The variables last only for that prompt window. The script never writes
+  the key or the password to its files, log or screen.
+- `--manifest` is the `manifest.csv` that `acfrs_downloader.py` wrote. Entities in
+  it with status `downloaded` or `already_present` are left out (matched on state +
+  name). Use `--no-manifest` to keep them.
+- `--census download` fetches the Census of Governments 2022 list (about 11 MB)
+  into the output folder once and uses it as a second reference. You can instead
+  pass the path of `govt_units_2022.ZIP` or the `.xlsx` inside it, or leave the
+  option out.
+- Try a small run first: `--states DE --limit 50`.
+- Rerunning is quick: the FAC rows (`fac_general_fy2025.json`) and the
+  acfrs.reason.org entity list (`acfrs_reference_entities.csv`, a crawl of about
+  2,800 listing pages, a few minutes) are cached in the output folder. Use
+  `--refresh-fac` or `--refresh-reference` to fetch them again.
+- `--check-audit-year` prints `audit_year` next to the fiscal-year dates for a
+  few reports and exits. The run log also counts how `audit_year` relates to the
+  dates. Selection always uses `fy_end_date`.
+
+What it does:
+
+1. Reads the FAC API `general` table with `entity_type=local` and
+   `fy_end_date` between 2025-01-01 and 2025-12-31 (`--fy-end-year` changes the
+   year), and removes duplicate report IDs.
+2. Classifies each auditee:
+   - Housing authorities (housing authority / commission / agency, HRAs) are
+     always included.
+   - State-level finance agencies (a state name followed by finance, bond bank,
+     mortgage, treasurer, ...) are excluded.
+   - Otherwise state + normalized name is looked up in the acfrs.reason.org
+     Special District, General Purpose and School District lists, then in the
+     Census list. Normalizing ignores case, punctuation, word order ("County of
+     Autauga" = "Autauga County"), common abbreviations and a trailing state
+     name. A single category decides. A name listed under several categories,
+     or where acfrs.reason.org and the Census disagree, goes to review.
+   - Names with no match get name rules: departments, offices and enterprise
+     funds of a government ("Department", "Enterprise Fund", "City of X Water
+     and Sewer System"), "City of"/"Town of"/"X County", school-district words,
+     "Inc"/"Corporation"/"Foundation" are excluded; strong special-district words
+     ("district", "authority", "port of", "levee", ...) are included; weak words
+     ("commission", "board", "utility", ...), component units and anything else
+     go to review.
+3. Writes `fac_fy2025_special_district_review.csv` (opens in Excel), sorted
+   include, review, exclude. Columns: name, state, uei, report_id,
+   fiscal_year_end, proposed_category, match_method (for example `acfrs exact`,
+   `acfrs reordered + census`, `place name`, `name rule: housing authority`),
+   why, action (include / review / exclude), city, ein, fiscal_year_start,
+   audit_year, fac_accepted_date, reference_match (the reference entries that
+   matched), reports_for_uei and fac_summary_url. `fac_log.txt` has the counts.
+
 ## Large runs (for example 25,000 reports on a 12-core, 64 GB PC)
 
 ```powershell

@@ -97,6 +97,7 @@ class PipelineTests(unittest.TestCase):
   self.assertEqual(r.returncode,0,r.stderr)
   # openpyxl's own warning (a temp file it only names, never writes) is not ours.
   self.assertEqual([l for l in r.stderr.splitlines() if 'EncodingWarning' in l and 'openpyxl' not in l],[])
+  self.assertIn('Found 1 PDFs',r.stdout);self.assertIn('1 PDFs to process, 0 already done',r.stdout)
   self.assertIn(' HI Kanu o ka \\u02bb\\u0100ina School 2025.pdf',r.stdout)
   self.assertEqual({x['government_name'] for x in self.read('statement_inventory.csv')},{'Kanu o ka \u02bb\u0100ina School, HI'})
  def test_after_page60_enterprise_and_resume(self):

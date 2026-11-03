@@ -1029,9 +1029,13 @@ def run(args):
  db=sqlite3.connect(out/'progress.sqlite');db.execute('CREATE TABLE IF NOT EXISTS results(source_path TEXT PRIMARY KEY,fingerprint TEXT,config_id TEXT,payload TEXT)')
  files=sorted(p for p in root.rglob('*') if p.is_file() and p.suffix.lower()=='.pdf' and not p.is_relative_to(out))
  if not files:raise ValueError('No PDF inputs found')
- seen=[];tasks=[]
- for p in files:
+ # Fingerprinting reads every PDF once; on tens of thousands of reports this
+ # takes minutes, so report progress instead of sitting silent.
+ print(f'Found {len(files)} PDFs under {root}. Checking fingerprints (reads every file once)...',flush=True)
+ seen=[];tasks=[];started=time.monotonic()
+ for n,p in enumerate(files,1):
   rel=p.relative_to(root).as_posix();seen.append(rel);fingerprint=sha256_file(p)
+  if n%500==0:print(f'Checked {n}/{len(files)} PDFs ({time.monotonic()-started:.0f}s)',flush=True)
   old=db.execute('SELECT fingerprint,config_id,payload FROM results WHERE source_path=?',(rel,)).fetchone()
   if args.resume and old and old[:2]==(fingerprint,config_id) and json.loads(old[2])['logs'][0]['status']!='failed':
    print(f'RESUME {rel}',flush=True);continue
@@ -1042,6 +1046,7 @@ def run(args):
  for rel, in db.execute('SELECT source_path FROM results').fetchall():
   if rel not in seen:db.execute('DELETE FROM results WHERE source_path=?',(rel,))
  db.commit()
+ print(f'{len(tasks)} PDFs to process, {len(files)-len(tasks)} already done; starting {args.workers} worker(s).',flush=True)
  def save(result):
   rel=result['base']['source_path']
   db.execute('INSERT OR REPLACE INTO results VALUES (?,?,?,?)',(rel,result['base']['document_id'],config_id,json.dumps(result)));db.commit()

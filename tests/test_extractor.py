@@ -121,7 +121,7 @@ class PipelineTests(unittest.TestCase):
   self.assertEqual(len(self.read('statement_inventory.csv')),18)
   self.assertTrue(any('password_required' in x['message'] for x in logs))
  def test_distinct_statement_frequency_and_denominator(self):
-  out=self.root/'freq';out.mkdir();db=sqlite3.connect(':memory:');db.execute('CREATE TABLE results(source_path,payload)')
+  out=self.root/'freq';out.mkdir();db=sqlite3.connect(':memory:');self.addCleanup(db.close);db.execute('CREATE TABLE results(source_path,payload)')
   for i in range(2):
    base={'statement_type':'GW_NET_POSITION','document_id':f'd{i}','government_name':'Same government','statement_id':f's{i}','original_caption':'Cash','section':'Assets','parent_heading':'Assets','row_kind':'caption'}
    payload={'occurrences':[base,base],'inventory':[{'statement_type':'GW_NET_POSITION','statement_id':f's{i}','status':'present'},{'statement_type':'PF_NET_POSITION','statement_id':f'p{i}','status':'absent'}],'logs':[]}

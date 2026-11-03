@@ -106,6 +106,8 @@ class Site:
             except LoginError:
                 raise
             except (urllib.error.URLError, OSError) as e:
+                if isinstance(e, urllib.error.HTTPError):
+                    e.close()
                 code = getattr(e, 'code', None)
                 if code is not None and code not in RETRYABLE_HTTP or attempt == retries:
                     raise
@@ -295,6 +297,7 @@ def fetch(url, dest, timeout=300):
         os.replace(part, dest)
         return size
     except urllib.error.HTTPError as e:
+        e.close()  # release the error response's connection; only code and reason are used
         if e.code in RETRYABLE_HTTP:
             raise
         raise PermanentError(f'HTTP {e.code} {e.reason}') from None

@@ -1,6 +1,8 @@
 """Offline tests for acfrs_downloader.py against a local fake site."""
 import csv
 import http.server
+import io
+import logging
 import os
 import sys
 import tempfile
@@ -87,6 +89,9 @@ class FakeSite(http.server.BaseHTTPRequestHandler):
 class DownloaderTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        # These tests fail downloads on purpose; keep their log lines out of the test output.
+        d.log.addHandler(logging.NullHandler())
+        d.log.propagate = False
         cls.server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), FakeSite)
         cls.base = f'http://127.0.0.1:{cls.server.server_port}'
         threading.Thread(target=cls.server.serve_forever, daemon=True).start()
@@ -216,7 +221,9 @@ class DownloaderTests(unittest.TestCase):
 
     def test_missing_credentials_exit_cleanly(self):
         with mock.patch.dict(os.environ, {'ACFRS_USERNAME': '', 'ACFRS_PASSWORD': ''}):
-            self.assertEqual(d.main(['--output', str(self.out)]), 2)
+            with mock.patch('sys.stderr', io.StringIO()) as err:
+                self.assertEqual(d.main(['--output', str(self.out)]), 2)
+        self.assertIn('ACFRS_USERNAME', err.getvalue())
 
 
 if __name__ == '__main__':

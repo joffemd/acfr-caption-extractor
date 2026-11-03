@@ -113,11 +113,15 @@ class Workbook(unittest.TestCase):
    self.assertEqual(r.returncode,0,r.stderr)
    self.assertFalse((root/'out'/'caption_occurrences.csv').exists())
    self.assertTrue((root/'out'/'caption_occurrences.sqlite').exists())
+   # A read-only workbook keeps the file open until close(); Windows cannot
+   # delete the temporary directory while it is open.
    wb=load_workbook(root/'out'/'caption_frequencies.xlsx',read_only=True)
-   self.assertEqual(wb.sheetnames,['Caption frequencies','Statements','About'])
-   head=next(wb['Caption frequencies'].iter_rows(values_only=True))
-   self.assertIn('Standardized caption',head);self.assertNotIn('pdf_page',head);self.assertNotIn('Original caption',head)
-   self.assertGreater(sum(1 for _ in wb['Caption frequencies'].iter_rows()),1)
+   try:
+    self.assertEqual(wb.sheetnames,['Caption frequencies','Statements','About'])
+    head=next(wb['Caption frequencies'].iter_rows(values_only=True))
+    self.assertIn('Standardized caption',head);self.assertNotIn('pdf_page',head);self.assertNotIn('Original caption',head)
+    self.assertGreater(sum(1 for _ in wb['Caption frequencies'].iter_rows()),1)
+   finally:wb.close()
 
 
 class FileNames(unittest.TestCase):

@@ -150,3 +150,14 @@ Fixes, each found on a real report:
   year) give government "Alameda County, CA" and fiscal year 2025 without a
   metadata file. Government names now always include the state, so same-named
   governments in different states are counted separately.
+
+## Unreleased
+
+- `fac_special_districts.py`: lists Federal Audit Clearinghouse single audits of
+  local governments with a fiscal year ending in 2025, classifies them against
+  the acfrs.reason.org Special District / General Purpose / School District
+  lists (and optionally the Census of Governments 2022), then by name rules, and
+  writes a review CSV. Housing authorities are always included; departments,
+  enterprise funds, general-purpose governments, school districts and state
+  finance agencies are excluded; uncertain names go to review. Entities already
+  in the acfrs downloader manifest are dropped. Nothing is downloaded.

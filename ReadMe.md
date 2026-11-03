@@ -28,6 +28,9 @@ never renamed, moved, or overwritten. Output must be a separate writable directo
   CSV exports and reference evaluation.
 - legacy_clean_amount.py: reused legacy numeric-cleaning component, attributed
   to the supplied 2021 caption-extraction-master archive; one raw-string fix.
+- acfrs_downloader.py: downloads fiscal-year ACFRs from acfrs.reason.org.
+- fac_special_districts.py: lists FAC single audits of special districts for a
+  fiscal year as a review CSV (no downloads); see WINDOWS_INSTALL.md.
 - normalization.json: editable exact aliases and context-sensitive caption keys.
 - tests/: executable functional and regression tests (standard unittest).
 - verified_reference.json and build_reference.py: manually transcribed reference.
